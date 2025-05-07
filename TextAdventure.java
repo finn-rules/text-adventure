@@ -1,6 +1,9 @@
 import java.util.Scanner;
 
 public class TextAdventure {
+    private static final String[] directions = {"north", "south", "east", "west"};
+
+    // Idea: use hashing in rooms to ensure that the player looks at things before taking action
 
     public static void helpMessage() throws InterruptedException {
         System.out.println("Wait: wait in the room for one turn\n" +
@@ -77,26 +80,16 @@ public class TextAdventure {
 
         int waitStatus = 0;
         //Array of rooms has the format {forward, backward, right, left}
-        
         Room hallway1 = null, hallway2 = null, hallway3 = null, hallway4 = null, hallway5 = null, commons = null, thirty_eight_thirteen = null, thirty_eight_eighteen = null;
-        hallway1 = new hallway1("hallway", null, null, hallway1Description(), waitStatus, new Obstacle[]{}, null);
-        hallway2 = new hallway2("hallway", null, null, hallway2Description(), waitStatus, new Obstacle[]{}, null);
-        hallway3 = new hallway3("hallway", null, null, hallway3Description(), waitStatus, new Obstacle[]{}, null);
-        hallway4 = new hallway4("hallway", null, null, hallway4Description(), waitStatus, new Obstacle[]{}, null);
-        hallway5 = new hallway5("hallway", null, null, hallway5Description(), waitStatus, new Obstacle[]{}, null);
-        commons = new commons("commons", null, null, commonsDescription(), waitStatus, new Obstacle[]{}, null);
-        thirty_eight_thirteen = new thirty_eight_thirteen("3813", null, null, thirteenDescription(), waitStatus, new Obstacle[]{}, null);
-        thirty_eight_eighteen = new thirty_eight_eightteen("3818", null, null, eighteenDescription(), waitStatus, new Obstacle[]{}, null);
+        hallway1 = new hallway1("hallway", null, new Room[]{hallway2, null, null, null}, hallway1Description(), waitStatus, new Obstacle[]{}, null);
+        hallway2 = new hallway2("hallway", null, new Room[]{hallway3, hallway1, thirty_eight_thirteen, null}, hallway2Description(), waitStatus, new Obstacle[]{}, null);
+        hallway3 = new hallway3("hallway", null, new Room[]{hallway4, hallway2, null, commons}, hallway3Description(), waitStatus, new Obstacle[]{}, null);
+        hallway4 = new hallway4("hallway", null, new Room[]{hallway5, hallway3, thirty_eight_eighteen, null}, hallway4Description(), waitStatus, new Obstacle[]{}, null);
+        hallway5 = new hallway5("hallway", null, new Room[]{null, hallway4, null, null}, hallway5Description(), waitStatus, new Obstacle[]{}, null);
+        commons = new commons("commons", null, new Room[]{null, hallway3, null, null}, commonsDescription(), waitStatus, new Obstacle[]{}, null);
+        thirty_eight_thirteen = new thirty_eight_thirteen("3813", null, new Room[]{null, hallway2, null, null}, thirteenDescription(), waitStatus, new Obstacle[]{}, null);
+        thirty_eight_eighteen = new thirty_eight_eightteen("3818", null, new Room[]{null, hallway4, null, null}, eighteenDescription(), waitStatus, new Obstacle[]{}, null);
         
-        hallway1.setAdjacentRooms(new Room[]{hallway2, null, null, null});
-        hallway2.setAdjacentRooms(new Room[]{hallway3, hallway1, thirty_eight_thirteen, null});
-        hallway3.setAdjacentRooms(new Room[]{hallway4, hallway2, null, commons});
-        hallway4.setAdjacentRooms(new Room[]{hallway5, hallway3, thirty_eight_eighteen, null});
-        hallway5.setAdjacentRooms(new Room[]{null, hallway4, null, null});
-        commons.setAdjacentRooms(new Room[]{null, hallway3, null, null});
-        thirty_eight_thirteen.setAdjacentRooms(new Room[]{null, hallway2, null, null});
-        thirty_eight_eighteen.setAdjacentRooms(new Room[]{null, hallway4, null, null});
-
         boolean running = true;
 
         Room currentRoom = hallway1; 

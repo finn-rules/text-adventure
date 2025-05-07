@@ -1,6 +1,7 @@
 public class Player {
     int maxHealth;
     int curHealth;
+    int effectiveHallwayPosition;
 
     boolean hidden;
     String[] inventory;
@@ -8,6 +9,7 @@ public class Player {
     public Player(int health, String[] inventory) {
         this.curHealth = health;
         this.maxHealth = health;
+        this.effectiveHallwayPosition = 0; // starting position is 0
         this.hidden = false;
         this.inventory = inventory;
     }
