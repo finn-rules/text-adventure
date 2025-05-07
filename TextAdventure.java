@@ -4,7 +4,7 @@ public class TextAdventure {
 
     public static void helpMessage() {
         System.out.println("Wait: wait in the room for one turn\n" +
-                        "Go <direction>: go in the given cardinal direction, e.g., north or south\n" +
+                        "Go <direction>: go in the given cardinal direction, e.g., north, south, east, west.\n" +
                         "Talk to <object>: talk to the given object found in the room\n" +
                         "Pick up <item>: pick up the given item found in the room\n" +
                         "Use <item>: use the given item found in the player's inventory\n" +
