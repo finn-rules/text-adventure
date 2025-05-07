@@ -17,6 +17,18 @@ public abstract class Room {
     public String[] getItems() {
         return items;
     }
+
+    public void removeItem(String item) {
+        for (int i = 0; i < items.length; i++) {
+            if (items[i].equals(item)) {
+                items[i] = null; // Remove the item
+                System.out.println("You removed " + item + " from the room.");
+                return;
+            }
+        }
+        System.out.println("Item not found in this room.");
+    }
+
     public Room[] getAdjacentRooms() {
         return adjacentRooms;
     }
