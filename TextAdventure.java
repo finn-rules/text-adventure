@@ -36,8 +36,20 @@ public class TextAdventure {
         boolean running = true;
         while (running) {
             Scanner scanner = new Scanner(System.in);
+            String input = scanner.nextLine();
+            // What should we do here? Are we going to give the user the freedom to go
+            // back to any room?
 
-        }
+            // Ideas: "patrolling professor" will patrol down the hallway, moving between the squares in the room.
+            // When you have reached a point of "confidence" you can win in a fight against the professor, you will be
+            // prompted. Maybe we can include a "confidence" mechanic? A funny play on stats homework where you have a
+            // confidence interval you can check to see if you can win the fight. You could theoretically win at any point,
+            // but it's beneficial to wait until you have a higher confidence level (as stats improve). 
 
+            // The player can also hide behind objects in the room, which will give them a chance to avoid being seen by the
+            // professor. If the player waits a move when hidden, they can get a "sneak attack" bonus when they attack the
+            // professor. Or, they can wait a turn to see if the professor will leave the room, which will give them a chance to escape.
+            
     }   
+}
 }
