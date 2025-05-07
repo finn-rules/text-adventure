@@ -42,6 +42,9 @@ public abstract class Room {
         }
         return adjacentRooms[index];
     }
+    public void setAdjacentRooms(Room[] adjacentRooms) {
+        this.adjacentRooms = adjacentRooms;
+    }
     public String getLookAroundDescription() {
         return lookAroundDescription;
     }
