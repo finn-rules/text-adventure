@@ -82,7 +82,7 @@ public class TextAdventure {
         hallway5 = new hallway5(null, new Room[]{hallway4}, hallway5Description(), waitStatus, new Obstacle[]{}, null);
         commons = new commons(null, new Room[]{hallway3}, commonsDescription(), waitStatus, new Obstacle[]{}, null);
         thirty_eight_thirteen = new thirty_eight_thirteen(null, new Room[]{hallway2}, thirteenDescription(), waitStatus, new Obstacle[]{}, null);
-        thirty_eight_eighteen = new thirty_eight_eighteen(null, new Room[]{hallway4}, eighteenDescription(), waitStatus, new Obstacle[]{}, null);
+        thirty_eight_eighteen = new thirty_eight_eightteen(null, new Room[]{hallway4}, eighteenDescription(), waitStatus, new Obstacle[]{}, null);
         
         boolean running = true;
         while (running) {
