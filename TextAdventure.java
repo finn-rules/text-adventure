@@ -15,7 +15,8 @@ public class TextAdventure {
                         "help: show this help message\n" +
                         "quit: quit the game.");
     }
-    public static void main(String[] args) throws InterruptedException {
+
+    public static void wakeupMessage() throws InterruptedException {
         System.out.println("Dazed and confused, you find yourself in a dark hallway.");
         Thread.sleep(2500);
         System.out.println("You try to remember how you got here, but your mind is blanking. What's my name...? Where am I...?");
@@ -32,7 +33,57 @@ public class TextAdventure {
         System.out.println("What do you want to do?");
         System.out.println("Welcome to the text adventure! Recognized commands are:");
         Thread.sleep(2500);
+    }
+
+    public static String hallway1Description() {
+        return("You look around the hallway. To your right, you see a whiteboard, with what looks like writing on it as well as " +
+        "a terrifying, horror looking drawing and some discourse about the ethics of using AI generated art. To your left there is an odd plant, " +
+        "seemingly out of place as no computer science student even goes outside to know what a plant would look like. In front of you the hallway " +
+        "stretches on, and you can hear noises coming from the dark abyss.");
+    }
+    public static String hallway2Description() {
+        return("You look around this hallway. To your right, you see a door with a locked code on it. Through the window you can see many computers. " + 
+        "Further down the hallway, it is still too dark to see, and ominous noises are still coming from down there.");
+    }
+    public static String hallway3Description() {
+        return("You look around this hallway. To your left, you can see the cs commons, this door does not appear to need a code to get in." + 
+        "Further down the hallway, it is still dark, but you start to see a human looking fuigure with a bald head.");
+    }
+    public static String hallway4Description() {
+        return("You look around this hallway. To your right, you can see a locked door that needs a code for entry, " + 
+        "You can start to see the human fuigure now, he appears to be wearing a blue raincoat, shorts, and sandals.");
+    }
+    public static String hallway5Description() {
+        return("The figure is right in front of you now! It is professor Osera, and he looks upset! He yells at you that you must become a computer science major " + 
+        "and turn in your declearation now! He starts to run at you, and just behind him you can see the stairs to leave this frightening floor. " + 
+        "Professor Osera is the only thing in your way from the escape! All you want to do is become a humanities major and spend the rest of your time at Grinnell in the " + 
+        "HSSC! In order to escape, you must defeat Osera! You must attack him to leave this nightmare! ");
+    }
+    public static String commonsDescription() {
+        return(" ");
+    }
+    public static String thirteenDescription() {
+        return(" ");
+    }
+    public static String eighteenDescription() {
+        return(" ");
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        wakeupMessage();
         helpMessage();
+
+        int waitStatus = 0;
+        Room hallway1 = null, hallway2 = null, hallway3 = null, hallway4 = null, hallway5 = null, commons = null, thirty_eight_thirteen = null, thirty_eight_eighteen = null;
+        hallway1 = new hallway1(null, new Room[]{hallway2}, hallway1Description(), waitStatus, new Obstacle[]{}, null);
+        hallway2 = new hallway2(null, new Room[]{hallway1, thirty_eight_thirteen, hallway3}, hallway2Description(), waitStatus, new Obstacle[]{}, null);
+        hallway3 = new hallway3(null, new Room[]{hallway2, commons, hallway4}, hallway3Description(), waitStatus, new Obstacle[]{}, null);
+        hallway4 = new hallway4(null, new Room[]{hallway3, thirty_eight_eighteen, hallway5}, hallway4Description(), waitStatus, new Obstacle[]{}, null);
+        hallway5 = new hallway5(null, new Room[]{hallway4}, hallway5Description(), waitStatus, new Obstacle[]{}, null);
+        commons = new commons(null, new Room[]{hallway3}, commonsDescription(), waitStatus, new Obstacle[]{}, null);
+        thirty_eight_thirteen = new thirty_eight_thirteen(null, new Room[]{hallway2}, thirteenDescription(), waitStatus, new Obstacle[]{}, null);
+        thirty_eight_eighteen = new thirty_eight_eightteen(null, new Room[]{hallway4}, eighteenDescription(), waitStatus, new Obstacle[]{}, null);
+        
         boolean running = true;
         while (running) {
             Scanner scanner = new Scanner(System.in);
