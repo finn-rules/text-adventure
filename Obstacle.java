@@ -31,7 +31,7 @@ public class Obstacle {
             return false;
         }
     }
-}
+
 
 Obstacle pottedPlant = new Obstacle("potted plant", "A semi-large, potted plant. " +
         "It's taller than you are, and covered in dirt. Its leaves are wilted," +
@@ -59,3 +59,4 @@ Obstacle hallway4door = new Obstacle("lab door", "You notice a door to your righ
         "" +
         "Under the keypad, there's also what appears to be a coin slot. Interesting... do I have a coin?\n",
         false, false, false); 
+}
