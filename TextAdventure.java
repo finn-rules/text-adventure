@@ -5,7 +5,6 @@ public class TextAdventure {
     public static void helpMessage() throws InterruptedException {
         System.out.println("Wait: wait in the room for one turn\n" +
                         "Go <direction>: go in the given cardinal direction, e.g., north, south, east, west.\n" +
-                        "Talk to <object>: talk to the given object found in the room\n" +
                         "Pick up <item>: pick up the given item found in the room\n" +
                         "Use <item>: use the given item found in the player's inventory\n" +
                         "Attack <object>: attack the given object found in the room\n" +
@@ -73,21 +72,31 @@ public class TextAdventure {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        wakeupMessage();
-        helpMessage();
+        //wakeupMessage();
+        //helpMessage();
 
         int waitStatus = 0;
         //Array of rooms has the format {forward, backward, right, left}
-        Room hallway1 = null, hallway2 = null, hallway3 = null, hallway4 = null, hallway5 = null, commons = null, thirty_eight_thirteen = null, thirty_eight_eighteen = null;
-        hallway1 = new hallway1("hallway", null, new Room[]{hallway2, null, null, null}, hallway1Description(), waitStatus, new Obstacle[]{}, null);
-        hallway2 = new hallway2("hallway", null, new Room[]{hallway3, hallway1, thirty_eight_thirteen, null}, hallway2Description(), waitStatus, new Obstacle[]{}, null);
-        hallway3 = new hallway3("hallway", null, new Room[]{hallway4, hallway2, null, commons}, hallway3Description(), waitStatus, new Obstacle[]{}, null);
-        hallway4 = new hallway4("hallway", null, new Room[]{hallway5, hallway3, thirty_eight_eighteen, null}, hallway4Description(), waitStatus, new Obstacle[]{}, null);
-        hallway5 = new hallway5("hallway", null, new Room[]{null, hallway4, null, null}, hallway5Description(), waitStatus, new Obstacle[]{}, null);
-        commons = new commons("commons", null, new Room[]{null, hallway3, null, null}, commonsDescription(), waitStatus, new Obstacle[]{}, null);
-        thirty_eight_thirteen = new thirty_eight_thirteen("3813", null, new Room[]{null, hallway2, null, null}, thirteenDescription(), waitStatus, new Obstacle[]{}, null);
-        thirty_eight_eighteen = new thirty_eight_eightteen("3818", null, new Room[]{null, hallway4, null, null}, eighteenDescription(), waitStatus, new Obstacle[]{}, null);
         
+        Room hallway1 = null, hallway2 = null, hallway3 = null, hallway4 = null, hallway5 = null, commons = null, thirty_eight_thirteen = null, thirty_eight_eighteen = null;
+        hallway1 = new hallway1("hallway", null, null, hallway1Description(), waitStatus, new Obstacle[]{}, null);
+        hallway2 = new hallway2("hallway", null, null, hallway2Description(), waitStatus, new Obstacle[]{}, null);
+        hallway3 = new hallway3("hallway", null, null, hallway3Description(), waitStatus, new Obstacle[]{}, null);
+        hallway4 = new hallway4("hallway", null, null, hallway4Description(), waitStatus, new Obstacle[]{}, null);
+        hallway5 = new hallway5("hallway", null, null, hallway5Description(), waitStatus, new Obstacle[]{}, null);
+        commons = new commons("commons", null, null, commonsDescription(), waitStatus, new Obstacle[]{}, null);
+        thirty_eight_thirteen = new thirty_eight_thirteen("3813", null, null, thirteenDescription(), waitStatus, new Obstacle[]{}, null);
+        thirty_eight_eighteen = new thirty_eight_eightteen("3818", null, null, eighteenDescription(), waitStatus, new Obstacle[]{}, null);
+        
+        hallway1.setAdjacentRooms(new Room[]{hallway2, null, null, null});
+        hallway2.setAdjacentRooms(new Room[]{hallway3, hallway1, thirty_eight_thirteen, null});
+        hallway3.setAdjacentRooms(new Room[]{hallway4, hallway2, null, commons});
+        hallway4.setAdjacentRooms(new Room[]{hallway5, hallway3, thirty_eight_eighteen, null});
+        hallway5.setAdjacentRooms(new Room[]{null, hallway4, null, null});
+        commons.setAdjacentRooms(new Room[]{null, hallway3, null, null});
+        thirty_eight_thirteen.setAdjacentRooms(new Room[]{null, hallway2, null, null});
+        thirty_eight_eighteen.setAdjacentRooms(new Room[]{null, hallway4, null, null});
+
         boolean running = true;
 
         Room currentRoom = hallway1; 
@@ -102,23 +111,27 @@ public class TextAdventure {
             else if (input.contains("go")) {
                 if(input.contains("forward") && currentRoom.getAdjacentRoomsIndex(0) != null) {
                     currentRoom = currentRoom.getAdjacentRoomsIndex(0);
-                    System.out.println("You are now in " + currentRoom.getName());
+                    System.out.println("\nYou are now in " + currentRoom.getName() + "\n");
                 }
                 else if(input.contains("backward") && currentRoom.getAdjacentRoomsIndex(1) != null) {
                     currentRoom = currentRoom.getAdjacentRoomsIndex(1);
-                    System.out.println("You are now in " + currentRoom.getName());
+                    System.out.println("\nYou are now in " + currentRoom.getName() + "\n");
                 }
                 else if(input.contains("right") && currentRoom.getAdjacentRoomsIndex(2) != null) {
                     currentRoom = currentRoom.getAdjacentRoomsIndex(2);
-                    System.out.println("You are now in " + currentRoom.getName());
+                    System.out.println("\nYou are now in " + currentRoom.getName() + "\n");
                 }
                 else if(input.contains("left") && currentRoom.getAdjacentRoomsIndex(3) != null) {
                     currentRoom = currentRoom.getAdjacentRoomsIndex(3);
-                    System.out.println("You are now in " + currentRoom.getName());
+                    System.out.println("\nYou are now in " + currentRoom.getName() + "\n");
                 }
                 else {
                     System.out.println("You can't go that way!");
                 }
+                System.out.println(currentRoom.getLookAroundDescription());
+            }
+            else {
+                System.out.println("Invalid command! Type 'help' for a list of commands!");
             }
 
             // What should we do here? Are we going to give the user the freedom to go
