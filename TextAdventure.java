@@ -79,14 +79,14 @@ public class TextAdventure {
 
         int waitStatus = 0;
         Room hallway1 = null, hallway2 = null, hallway3 = null, hallway4 = null, hallway5 = null, commons = null, thirty_eight_thirteen = null, thirty_eight_eighteen = null;
-        hallway1 = new hallway1(null, new Room[]{hallway2}, hallway1Description(), waitStatus, new Obstacle[]{}, null);
-        hallway2 = new hallway2(null, new Room[]{hallway1, thirty_eight_thirteen, hallway3}, hallway2Description(), waitStatus, new Obstacle[]{}, null);
-        hallway3 = new hallway3(null, new Room[]{hallway2, commons, hallway4}, hallway3Description(), waitStatus, new Obstacle[]{}, null);
-        hallway4 = new hallway4(null, new Room[]{hallway3, thirty_eight_eighteen, hallway5}, hallway4Description(), waitStatus, new Obstacle[]{}, null);
-        hallway5 = new hallway5(null, new Room[]{hallway4}, hallway5Description(), waitStatus, new Obstacle[]{}, null);
-        commons = new commons(null, new Room[]{hallway3}, commonsDescription(), waitStatus, new Obstacle[]{}, null);
-        thirty_eight_thirteen = new thirty_eight_thirteen(null, new Room[]{hallway2}, thirteenDescription(), waitStatus, new Obstacle[]{}, null);
-        thirty_eight_eighteen = new thirty_eight_eightteen(null, new Room[]{hallway4}, eighteenDescription(), waitStatus, new Obstacle[]{}, null);
+        hallway1 = new hallway1("hallway", null, new Room[]{hallway2}, hallway1Description(), waitStatus, new Obstacle[]{}, null);
+        hallway2 = new hallway2("hallway", null, new Room[]{hallway1, thirty_eight_thirteen, hallway3}, hallway2Description(), waitStatus, new Obstacle[]{}, null);
+        hallway3 = new hallway3("hallway", null, new Room[]{hallway2, commons, hallway4}, hallway3Description(), waitStatus, new Obstacle[]{}, null);
+        hallway4 = new hallway4("hallway", null, new Room[]{hallway3, thirty_eight_eighteen, hallway5}, hallway4Description(), waitStatus, new Obstacle[]{}, null);
+        hallway5 = new hallway5("hallway", null, new Room[]{hallway4}, hallway5Description(), waitStatus, new Obstacle[]{}, null);
+        commons = new commons("the commons", null, new Room[]{hallway3}, commonsDescription(), waitStatus, new Obstacle[]{}, null);
+        thirty_eight_thirteen = new thirty_eight_thirteen("3813", null, new Room[]{hallway2}, thirteenDescription(), waitStatus, new Obstacle[]{}, null);
+        thirty_eight_eighteen = new thirty_eight_eightteen("3818", null, new Room[]{hallway4}, eighteenDescription(), waitStatus, new Obstacle[]{}, null);
         
         boolean running = true;
 
