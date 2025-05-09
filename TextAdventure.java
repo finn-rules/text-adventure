@@ -1,7 +1,14 @@
 import java.util.Scanner;
 
+/*
+ * text adventure 
+ */
 public class TextAdventure {
 
+    /**
+     * Displays a help message with the available commands in the game.
+     * @throws InterruptedException if the thread is interrupted
+    */
     public static void helpMessage() throws InterruptedException {
         System.out.println("Wait: wait in the room for one turn\n" +
                         "Go <direction>: go in the given cardinal direction, e.g., north, south, east, west.\n" +
@@ -16,6 +23,10 @@ public class TextAdventure {
                         Thread.sleep(2000);
     }
 
+    /**
+     * Message to display when the player wakes up in the game.
+     * @throws InterruptedException if the thread is interrupted
+     */
     public static void wakeupMessage() throws InterruptedException {
         System.out.println("Dazed and confused, you find yourself in a dark hallway.");
         Thread.sleep(2000);
