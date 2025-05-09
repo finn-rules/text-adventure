@@ -1,3 +1,6 @@
+/**
+ * npc
+ */
 public class NPC {
     private String name;
     private int maxHealth;
@@ -5,6 +8,13 @@ public class NPC {
     private String[] inventory;
     private String description;
 
+    /**
+     * Constructor for NPC class
+     * @param name Name of the NPC
+     * @param health Maximum health of the NPC
+     * @param inventory Inventory items of the NPC
+     * @param description Description of the NPC
+     */
     public NPC(String name, int health, String[] inventory, String description) {
         this.name = name;
         this.maxHealth = health;
@@ -13,22 +23,42 @@ public class NPC {
         this.description = description;
     }
 
+    /**
+     * gets the name of the npc
+     * @return name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * gets the current health of the npc
+     * @return health
+     */
     public int getCurHealth() {
         return curHealth;
     }
 
+    /**
+     * gets the inventory of the npc
+     * @return inventory
+     */
     public String[] getInventory() {
         return inventory;
     }
 
+    /**
+     * gets the description of the npc
+     * @return description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * has the npc take damage
+     * @param damage damage
+     */
     public void takeDamage(int damage) {
         this.curHealth -= damage;
         if (this.curHealth <= 0) {
@@ -38,5 +68,4 @@ public class NPC {
             System.out.println(name + " looks injured! Stay strong!");
         }
     }
-    
 }

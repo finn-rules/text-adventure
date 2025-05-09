@@ -37,42 +37,86 @@ public class TextAdventure {
         Thread.sleep(2000);
     }
 
+    /**
+     * Description of the rooms in the game.
+     * @return description of the room
+     */
     public static String hallway1Description() {
         return("\nYou look around the hallway. To your right, you see a whiteboard, with what looks like writing on it as well as " +
         "a terrifying, horror looking drawing and some discourse about the ethics of using AI generated art. To your left there is an odd plant, " +
         "seemingly out of place as no computer science student even goes outside to know what a plant would look like. In front of you the hallway " +
         "stretches on, and you can hear noises coming from the dark abyss.\n");
     }
+
+    /**
+     * Description of the rooms in the game.
+     * @return description of the room
+     */
     public static String hallway2Description() {
         return("\nYou look around this hallway. To your right, you see a door with a locked code on it. Through the window you can see many computers. " + 
         "Further down the hallway, it is still too dark to see, and ominous noises are still coming from down there.\n");
     }
+
+    /**
+     * Description of the rooms in the game.
+     * @return description of the room
+     */
     public static String hallway3Description() {
         return("\nYou look around this hallway. To your left, you can see the cs commons, this door does not appear to need a code to get in." + 
         "Further down the hallway, it is still dark, but you start to see a human looking fuigure with a bald head.\n");
     }
+
+    /**
+     * Description of the rooms in the game.
+     * @return description of the room
+     */
     public static String hallway4Description() {
         return("\nYou look around this hallway. To your right, you can see a locked door that needs a code for entry, " + 
         "You can start to see the human fuigure now, he appears to be wearing a blue raincoat, shorts, and sandals.\n");
     }
+
+    /**
+     * Description of the rooms in the game.
+     * @return description of the room
+     */
     public static String hallway5Description() {
         return("\nThe figure is right in front of you now! It is professor Osera, and he looks upset! He yells at you that you must become a computer science major " + 
         "and turn in your declearation now! He starts to run at you, and just behind him you can see the stairs to leave this frightening floor. " + 
         "Professor Osera is the only thing in your way from the escape! All you want to do is become a humanities major and spend the rest of your time at Grinnell in the " + 
         "HSSC! In order to escape, you must defeat Osera! You must attack him to leave this nightmare!\n");
     }
+
+    /**
+     * Description of the rooms in the game.
+     * @return description of the room
+     */
     public static String commonsDescription() {
         return("The commons are considerably more welcoming and well lit than the hallway.\n The veil of mist that seperates the commons from the hallways " +
         "humms behind you, a cool breeze on your back.\n A desk lies right next to you, filled with unfinished homework. There's a strange lump under the homework.\n" +
         "There are some health packs in the corner, and a marble statue of a long-forgotten professor. ");
     }
+
+    /**
+     * Description of the rooms in the game.
+     * @return description of the room
+     */
     public static String thirteenDescription() {
         return(" ");
     }
+
+    /**
+     * Description of the rooms in the game.
+     * @return description of the room
+     */
     public static String eighteenDescription() {
         return(" ");
     }
 
+    /**
+     * Main method to run the text adventure game.
+     * @param args command line arguments
+     * @throws InterruptedException if the thread is interrupted
+     */
     public static void main(String[] args) throws InterruptedException {
         //wakeupMessage();
         //helpMessage();
