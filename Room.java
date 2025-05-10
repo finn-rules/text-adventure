@@ -3,7 +3,7 @@
  */
 public abstract class Room {
     private String name; // Name of the room
-    private String[] items;
+    private Item[] items;
     private Room[] adjacentRooms; // Also a proxy for valid directions
     private String lookAroundDescription;
     private int waitStatus; // 0 : no wait.
@@ -20,7 +20,7 @@ public abstract class Room {
      * @param obstacles            The obstacles in the room.
      * @param npc                 The NPC in the room.
      */
-    public Room(String name, String[] items, Room[] adjacentRooms, String lookAroundDescription, int waitStatus, Obstacle[] obstacles, NPC npc) {
+    public Room(String name, Item[] items, Room[] adjacentRooms, String lookAroundDescription, int waitStatus, Obstacle[] obstacles, NPC npc) {
         this.name = name;
         this.items = items;
         this.adjacentRooms = adjacentRooms;
@@ -42,7 +42,7 @@ public abstract class Room {
      * gets items in room
      * @return items in room
      */
-    public String[] getItems() {
+    public Item[] getItems() {
         return items;
     }
 
@@ -50,7 +50,7 @@ public abstract class Room {
      * removes item from room
      * @param item item to remove
      */
-    public void removeItem(String item) {
+    public void removeItem(Item item) {
         for (int i = 0; i < items.length; i++) {
             if (items[i].equals(item)) {
                 items[i] = null; // Remove the item
@@ -58,7 +58,7 @@ public abstract class Room {
                 return;
             }
         }
-        System.out.println("Item not found in this room.");
+        System.out.println("Item not found in this room. Maybe you already picked it up, or removed it?");
     }
 
     /**
@@ -69,6 +69,10 @@ public abstract class Room {
         return adjacentRooms;
     }
 
+    /**
+     * gets the name of the adjacent rooms
+     * @return names of adjacent rooms
+     */
     public void printAdjacentRooms() {
         System.out.println("Adjacent rooms:");
         for (int i = 0; i < adjacentRooms.length; i++) {

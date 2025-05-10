@@ -5,18 +5,20 @@ public class Player {
     private int maxHealth;
     private int curHealth;
     private int effectiveHallwayPosition;
+    private int damage;
 
     private boolean hidden;
-    private String[] inventory;
+    private Item[] inventory;
 
     /**
      * Constructor for Player class
      * @param health health of the player
      * @param inventory inventory of the player
      */
-    public Player(int health, String[] inventory) {
+    public Player(int health, int damage, Item[] inventory) {
         this.curHealth = health;
         this.maxHealth = health;
+        this.damage = damage;
         this.effectiveHallwayPosition = 0; // starting position is 0
         this.hidden = false;
         this.inventory = inventory;
@@ -85,8 +87,20 @@ public class Player {
      * gets inventory of player
      * @return inventory
      */
-    public String[] getInventory() {
+    public Item[] getInventory() {
         return inventory;
+    }
+
+    public void increaseDamage(int damage) {
+        this.damage = this.damage + damage;
+    }
+
+    /**
+     * gets damage of player
+     * @return damage
+     */
+    public int getDamage() {
+        return damage;
     }
 
     /**
@@ -95,7 +109,7 @@ public class Player {
      * @return inventory at index
      * @throws IndexOutOfBoundsException if index is out of bounds
      */
-    public String getInventoryIndex(int index) {
+    public Item getInventoryIndex(int index) {
         if (index < 0 || index >= inventory.length) {
             throw new IndexOutOfBoundsException("you did not choose an index in inventory the array!"); // or throw an exception
         }

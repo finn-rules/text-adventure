@@ -12,7 +12,7 @@ public class TextAdventure {
      */
     public static void helpMessage() throws InterruptedException {
         System.out.println("Wait: wait in the room for one turn\n" +
-                "Go <direction>: go in the given cardinal direction, e.g., north, south, east, west.\n" +
+                "Go <direction>: go in the given cardinal direction, e.g., forward, backward, left, right.\n" +
                 "Pick up <item>: pick up the given item found in the room\n" +
                 "Use <item>: use the given item found in the player's inventory\n" +
                 "Attack <object>: attack the given object found in the room\n" +
@@ -23,6 +23,60 @@ public class TextAdventure {
                 "quit: quit the game.\n");
         Thread.sleep(2000);
     }
+
+    /**
+     * Prints the position of Osera in the hallway.
+     * 
+     * @param position the position of Osera (0-4, representing distance from player)
+     */
+    public static void printHallOseraPos(int position) {
+        if (position == 0) {
+            System.out.println("The foreboding figure is right in front of you... prepare for combat, or flee!\n" +
+                    "Professor Osera lets out a deafening roar... 'I know Jiu Jitsu!'\n");
+        } else if (position == 1) {
+            System.out.println("The foreboding figure is close... you can see his bald head, and sandals.\n" +
+                    "He exclaims 'you WILL be a CS major! Over my (or your) dead body!'");
+        } else if (position == 2) {
+            System.out.println("The foreboding figure is two squares away from you.");
+        } else if (position == 3) {
+            System.out.println("The foreboding figure is towards the other end of the hallway.");
+        } else if (position == 4) {
+            System.out.println("The foreboding figure is at the other end of the hallway. You feel like you're safe... for now.");
+        }
+    }
+
+    /**
+     * Prints the position of Osera when the player is safe in a side room.
+     * 
+     * @param position the position of Osera (0-4, representing distance from player)
+     */
+    public static void printRoomOseraPos(int position) {
+        if (position == 0) {
+            System.out.println("You don't even have to peek out the door's window. Osera's face is right outside!\n" +
+                    "You can hear his yell through the door, my goodness!\n" +
+                    "He says 'If you step outside, you will be in a world of pain!'\n" +
+                    "'I haven't drop kicked a humanities major in a week!'\n" +
+                    "You have a feeling that if you wait a few turns, he will probably continue to pace.\n" +
+                    "You can hear him mumbling about how he needs to get a new pair of sandals.\n");
+        } else if (position == 1) {
+            System.out.println("The foreboding figure is close, you can see him about to step outside the room.\n" +
+                    "He know's you're in here! But you feel like you might be able to make a break for it.\n" +
+                    "(If you're a risk taker).");
+        } else if (position == 2) {
+            System.out.println("You can hear the foreboding figure getting closer to your room.\n" +
+                    "However, you feel safe for now. You might be able to make a break for it.\n");
+        } else if (position == 3) {
+            System.out.println("You can just barely hear the foreboding figure's footsteps.\n" +
+                    "You feel like you're safe to step out of the room, if you're done here.");
+        } else if (position == 4) { // This case won't happen.
+            System.out.println("How did you get to this room? That's weird. Whatever cheating you're doing, the universe doesn't like it.\n" +
+                    "Something called the 'programmer' is going to be very upset.\n" +
+                    "It's not your fault, but the choices you made lead to your demise.\n");
+            System.out.println("GAME OVER (bugged ending).");
+            System.exit(0);
+        }
+    }
+
 
     /**
      * Message to display when the player wakes up in the game.
@@ -185,11 +239,12 @@ public class TextAdventure {
         commons.setAdjacentRooms(new Room[] {null, hallway3, null, null});
         thirty_eight_thirteen.setAdjacentRooms(new Room[] {null, hallway2, null, null});
         thirty_eight_eighteen.setAdjacentRooms(new Room[] {null, hallway4, null, null});
+        // Set items and the NPC here.
         boolean running = true;
 
-        String[] inventory = new String[20];
+        Item[] inventory = new Item[20];
         int inventorySize = 0;
-        Player player = new Player(100, inventory);
+        Player player = new Player(100, 0, inventory);
         Room currentRoom = hallway1;
         System.out.println(currentRoom.getLookAroundDescription());
 
@@ -245,20 +300,16 @@ public class TextAdventure {
                     System.out.println("You can't go that way!");
                 }
                 System.out.println(currentRoom.getLookAroundDescription());
-            } else if (input.contains("look")) {
-                if (input.contains("whiteboard") && currentRoom.getName().equals("hallway")) {
-                    System.out.println("A surpisingly clean whiteboard. It seems to be " +
-                            "covered in some kind of unintelligible writing.\n It mentions something about " +
-                            "how terrible and annoying documentation is. There's also a sequence of letters...?\n " +
-                            "It reads 'IV, IX, VII, II'. Who left this here? It looks like a code of some kind.\n " +
-                            "It also says 'If you haven't already, check your pockets!'\n This seems a lot less vague. " +
-                            "If you haven't already, You can check your pockets by typing inventory!\n");
-                }
-                else if (input.contains("homework") && currentRoom.getName().equals("commons")) {
-                    System.out.println("The homework is blank, but underneath is is something shiny! its a key!\n");
-                }
-                else if (input.contains("chalkboard") && currentRoom.getName().equals("hallway")) {
-                    System.out.println("looking at chalkboard.");
+            } else if (input.contains("look")) { // how can I change this to a more abstract version?
+                if (input.contains("around")) {
+                    System.out.println(currentRoom.getLookAroundDescription());
+                    if (currentRoom.getName().contains("hallway")) {
+                        printHallOseraPos(Math.abs(player.getEffectiveHallwayPosition() - (waitStatus) % 5));
+                    } else {
+                        printOutOseraPos(Math.abs(player.getEffectiveHallwayPosition() - (waitStatus % 5)));
+                    }
+                    
+
                 }
                 else {
                     System.out.println("You look at it. It doesn't seem to be anything special. Or it doesn't exists in this room, maybe you made it up.\n");
@@ -267,7 +318,7 @@ public class TextAdventure {
                 if (input.contains("key") && currentRoom.getName().equals("commons")) {
                     System.out.println("You picked up the key!\n");
                     hasKey = true;
-                    inventory[inventorySize] = "key";
+                    inventory[inventorySize] = "placeholder"; // for now , will fix
                 }
                 else {
 
