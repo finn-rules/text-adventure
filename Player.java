@@ -2,12 +2,12 @@
  * player class 
  */
 public class Player {
-    int maxHealth;
-    int curHealth;
-    int effectiveHallwayPosition;
+    private int maxHealth;
+    private int curHealth;
+    private int effectiveHallwayPosition;
 
-    boolean hidden;
-    String[] inventory;
+    private boolean hidden;
+    private String[] inventory;
 
     /**
      * Constructor for Player class
@@ -22,12 +22,48 @@ public class Player {
         this.inventory = inventory;
     }
 
+    public void setPlayerHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
+
+    /**
+     * sets the current health of player
+     * @param curHealth current health of player
+     */
+    public void setCurHealth(int curHealth) {
+        this.curHealth = curHealth;
+    }
+
     /**
      * gets current health of player
      * @return current health of player
      */
     public int getCurHealth() {
         return curHealth;
+    }
+
+    /**
+     * sets max health of player
+     * @return max health of player
+     */
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
+    /**
+     * gets max health of player
+     * @return max health of player
+     */
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public int getEffectiveHallwayPosition() {
+        return effectiveHallwayPosition;
+    }
+
+    public void setEffectiveHallwayPosition(int effectiveHallwayPosition) {
+        this.effectiveHallwayPosition = effectiveHallwayPosition;
     }
 
     /**

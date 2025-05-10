@@ -69,6 +69,17 @@ public abstract class Room {
         return adjacentRooms;
     }
 
+    public void printAdjacentRooms() {
+        System.out.println("Adjacent rooms:");
+        for (int i = 0; i < adjacentRooms.length; i++) {
+            if (adjacentRooms[i] == null) {
+                System.out.println("Index " + i + " has no room!");
+                continue;
+            }
+            System.out.println((i + 1) + ": " + adjacentRooms[i].getName());
+        }
+    }
+
     /**
      * gets the adjacent rooms index
      * @param index index of adjacent room
@@ -114,5 +125,8 @@ public abstract class Room {
     }
     public NPC getNpc() {
         return npc;
+    }
+    public void setNpc(NPC npc) {
+        this.npc = npc;
     }
 }

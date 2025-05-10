@@ -122,7 +122,7 @@ public class TextAdventure {
      * @return description of the room
      */
     public static String commonsDescription() {
-        return ("The commons are considerably more welcoming and well lit than the hallway.\n The veil of mist that seperates the commons from the hallways "
+        return ("The commons are considerably more welcoming and well lit than the hallway.\n The veil of mist that seperates the commons from the hallway "
                 +
                 "humms behind you, a cool breeze on your back.\n A desk lies right next to you, filled with unfinished homework. There's a strange lump under the homework.\n"
                 +
@@ -187,24 +187,48 @@ public class TextAdventure {
         thirty_eight_eighteen.setAdjacentRooms(new Room[] {null, hallway4, null, null});
         boolean running = true;
 
-        String[] inventory = new String[100];
+        String[] inventory = new String[20];
         int inventorySize = 0;
         Player player = new Player(100, inventory);
         Room currentRoom = hallway1;
         System.out.println(currentRoom.getLookAroundDescription());
 
         while (running) {
-            System.out.println("current room:" + currentRoom.getName() + "\n" +
-                    "rooms " + currentRoom.getAdjacentRooms());
+            System.out.println("current room:" + currentRoom.getName() + "\n");
+                    currentRoom.printAdjacentRooms();
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine().toLowerCase();
-            if(inventorySize == 98){
-                System.out.println("You are holding too much shit! You're GONE!");
-                running = false;
+            if(inventorySize >= 18) {
+                if (inventorySize >= 20) {
+                    System.out.println("You feel the floor rumbling beneath you, but your pockets are somehow holding strong.\n");
+                    Thread.sleep(2000);
+                    System.out.println("The universe questions how you are even able to carry this much.");
+                    Thread.sleep(2000);
+                    System.out.println("Nevertheless, it tried to warn you... but you didn't listen.\n");
+                    Thread.sleep(2000);
+                    System.out.println("The floor instantly collapses beneath you, and you fall into an endless void.\n");
+                    Thread.sleep(2000);
+                    System.out.println("You are dead! or... you will be? Doesn't matter, GAME OVER!");
+                    System.exit(0);
+                }
+                System.out.println("Your pockets are absolutely stuffed - how did you even get this much?");
+                System.out.println("You can only pick up " + (19 - inventorySize) + " more item(s).");
+                System.out.println("You have a strange feeling that if you pick up more than 19 items, " +
+                        "you will fall through the floor and die. Just a hunch. I wouldn't test it.");
             }
             if (input.contains("wait")) {
                 System.out.println("Waiting...");
-            } else if (input.contains("go")) {
+                waitStatus++;
+            } else if (input.contains("help")) {
+                helpMessage();   
+            } else if (input.contains("check") || input.contains("pocket") || input.contains("inventory")) {
+                System.out.println("You check your pockets. You have the following items:");
+                for (int i = 0; i < inventory.length; i++) {
+                    if (inventory[i] != null) {
+                        System.out.println(inventory[i]);
+                    } 
+                }
+             } else if (input.contains("go")) {
                 if (input.contains("forward") && currentRoom.getAdjacentRoomsIndex(0) != null) {
                     currentRoom = currentRoom.getAdjacentRoomsIndex(0);
                     System.out.println("\nYou are now in " + currentRoom.getName() + "\n");
