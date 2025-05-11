@@ -509,31 +509,47 @@ public class TextAdventure {
                 if (input.contains("around")) {
                     System.out.println(currentRoom.getLookAroundDescription());
                     if (currentRoom.getName().contains("hallway")) {
-                        printHallOseraPos(Math.abs(player.getEffectiveHallwayPosition() - waitStatus));
+                        printHallOseraPos(Math.abs(player.getEffectiveHallwayPosition() - effectiveOseraPosition));
                         continue;
                     } else {
-                        printRoomOseraPos(Math.abs(player.getEffectiveHallwayPosition() - waitStatus));
+                        printRoomOseraPos(Math.abs(player.getEffectiveHallwayPosition() - effectiveOseraPosition));
                         continue;
                     }
                     // General case : iterate through all the items and obstacles in the room + match
                     // the name of the item to the input
+                } else if (input.contains("at")) {  
+                if(input.split(" ").length < 3) {
+                    System.out.println("You look around the room, and you didn't see what you were looking for.\n");
+                    continue;
                 }
-                String inputItem = input.split(" ")[2]; // Parser here?
-                for (int i = 0; i < currentRoom.getItems().length; i++) {
-                    if (currentRoom.getItems()[i].getDescription().contains(inputItem)) {
-                        System.out.print("You look at the " + inputItem + ". ");
-                        System.out.println(currentRoom.getItems()[i].getDescription());
-                        break;
-                    }
-                }
+                String inputItem = input.split(" ")[2]; // Parser here?  
                 for (int i = 0; i < currentRoom.getObstacles().length; i++) {
                     if (currentRoom.getObstacles()[i].getDescription().contains(inputItem)) {
                         System.out.print("You look at the " + inputItem + ". ");
-                        System.out.println(currentRoom.getItems()[i].getDescription());
+                        System.out.println(currentRoom.getObstacles()[i].getDescription());
+                        break;
+                    } 
+                }
+                if(currentRoom.getItems() == null) {
+                    System.out.println("There is nothing left for you to see in this room, " +
+                            "or maybe you mispoke.");
+                    continue;
+                }
+                for (int j = 0; j < currentRoom.getItems().length; j++) {
+                    if (currentRoom.getItems()[j].getDescription().contains(inputItem)) {
+                        System.out.print("You look at the " + inputItem + ". ");
+                        System.out.println(currentRoom.getItems()[j].getDescription());
                         break;
                     }
                 }
+            } else {
+            System.out.println("You look around the room, and you didn't see what you were looking for.\n");
+            }
             } else if (input.contains("pick up")) {
+                if(input.split(" ").length < 3) {
+                    System.out.println("Sorry, your command wasn't quite right. Try again?\n");
+                    continue;
+                }
                 String inputItem = input.split(" ")[2]; // Parser here?
                 if (currentRoom.getItems() == null) {
                     System.out.println("There are no more items in this room!");

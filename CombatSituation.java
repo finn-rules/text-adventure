@@ -53,10 +53,9 @@ public class CombatSituation {
             } else if (command.equals("flee")) {
                 System.out.println("You fled from the battle!");
                 Thread.sleep(2000);
-                System.out.println("I wouldn't say you took the coward's way out.");
+                System.out.println("I wouldn't say you took the coward's way out. (Unless you die...)");
                 Thread.sleep(2000);
-                System.out.println("If " + npc.getName() + " takes a stabs at you and kills you, maybe you did though.");
-                break;
+                System.out.println(npc.getName() + " will still take a stab at you.");
             } else if (command.equals("check pockets")) {
                 player.printInventory();
             } else if (command.equals("assess situation")) {

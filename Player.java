@@ -107,8 +107,6 @@ public class Player {
         this.curHealth -= damage;
         if (this.curHealth <= 0) {
             this.curHealth = 0;
-            System.out.println("You have been defeated!");
-            System.exit(0); // End the game
         } else if (this.curHealth < this.maxHealth / 4) {
             System.out.println("That one hurt... your health is low! Stay strong, maybe consider fleeing!");
         }
