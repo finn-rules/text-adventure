@@ -2,17 +2,17 @@ public class Item {
     private String name;
     private String description;
     private boolean useable;
-    private String useDesciption;
+    private String useDescription;
     private int healthBuff;
     private int healingValue;
     private int damageBuff;
     private boolean spottable;
 
-    public Item(String name, String description, boolean useable, String useDesciption, int healthBuff, int healingValue, int damageBuff, boolean spottable) {
+    public Item(String name, String description, boolean useable, String useDescription, int healthBuff, int healingValue, int damageBuff, boolean spottable) {
         this.name = name;
         this.description = description;
         this.useable = useable;
-        this.useDesciption = useDesciption;
+        this.useDescription = useDesciption;
         this.healthBuff = healthBuff;
         this.healingValue = healingValue;
         this.damageBuff = damageBuff;
@@ -47,8 +47,8 @@ public class Item {
      * gets use description of item
      * @return use description
      */
-    public String getUseDesciption() {
-        return useDesciption;
+    public String getUseDescription() {
+        return useDescription;
     }
 
     /**

@@ -33,6 +33,7 @@ public class KeyItem extends Item {
         if (curRoom.equals(useRoom)) {
             System.out.println("You used the " + getName() + " in the " + curRoom.getName() + ".");
             door.unlock();
+            player.useItem(getDescription());
             System.out.println("The " + door.getName() + " has been unlocked.");
         } else {
             System.out.println("You can't use the " + getName() + " here.");

@@ -33,6 +33,17 @@ public class Door extends Obstacle {
         return keyName;
     }
 
+    public boolean compareKey(KeyItem key) {
+        if (key.getName().equals(keyName)) {
+            System.out.println("The key fits the door. You can unlock it.");
+            System.out.println("You used the " + key.getName() + " to unlock the " + getName() + ".");
+            return true;
+        } else {
+            System.out.println("The key does not fit the door.");
+            return false;
+        }
+    }
+
     /**
      * unlocks the door
      */

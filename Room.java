@@ -9,6 +9,8 @@ public abstract class Room {
     private int waitStatus; // 0 : no wait.
     private Obstacle[] obstacles;
     private NPC npc;
+    private boolean hasDoor;
+    private Door door;
     /**
      * Constructor for the Room class.
      *
@@ -20,6 +22,23 @@ public abstract class Room {
      * @param obstacles            The obstacles in the room.
      * @param npc                 The NPC in the room.
      */
+    public Room(String name, Item[] items, Room[] adjacentRooms, String lookAroundDescription, int waitStatus, Obstacle[] obstacles, NPC npc, Door door) {
+        this.name = name;
+        this.items = items;
+        this.adjacentRooms = adjacentRooms;
+        this.lookAroundDescription = lookAroundDescription;
+        this.waitStatus = waitStatus;
+        this.obstacles = obstacles;
+        this.npc = npc;
+        if (door != null) {
+            this.hasDoor = true;
+            this.door = door;
+        } else {
+            this.hasDoor = false;
+            this.door = null;
+        }
+    }
+
     public Room(String name, Item[] items, Room[] adjacentRooms, String lookAroundDescription, int waitStatus, Obstacle[] obstacles, NPC npc) {
         this.name = name;
         this.items = items;
@@ -29,6 +48,7 @@ public abstract class Room {
         this.obstacles = obstacles;
         this.npc = npc;
     }
+
 
     /**
      * gets name of room
@@ -168,6 +188,21 @@ public abstract class Room {
             }
         }
         System.out.println("Item not found in this room. Maybe you already picked it up, or mistyped?");
+    }
+
+    public boolean hasDoor() {
+        return hasDoor;
+    }
+    public Door getDoor() {
+        return door;
+    }
+    public void unlockDoor() {
+        if (hasDoor) {
+            door.unlock();
+            System.out.println("The door has been unlocked."); // unnecessary?
+        } else {
+            System.out.println("There is no door in this room.");
+        }
     }
 
 }

@@ -172,7 +172,7 @@ public class Player {
             return;
         }
         if (item.isUseable()) {
-            System.out.println(item.getUseDesciption());
+            System.out.println(item.getUseDescription());
             if (item.getHealthBuff() > 0) {
                 this.setMaxHealth(item.getHealthBuff() + this.getMaxHealth());
                 System.out.println("You gained " + item.getHealthBuff() + " max health!");

@@ -54,5 +54,13 @@ public class Obstacle {
             return false;
         }
     }
+
+    public boolean isHideable() {
+        return canHideIn;
+    }
+
+    public boolean isBreakable() {
+        return breakable;
+    }
 }
 

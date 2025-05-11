@@ -190,7 +190,7 @@ public class TextAdventure {
                 +
                 "You can see a door to your left! It's the exit! It's locked, with a massive golden padlock.\n" +
                 "Certainly a massive golden padlock needs a massive golden key.\n" +
-                "Golden statue... golden padlock... golden key... oh god, do I need to defeat Osera to get out of here?\n");
+                "Golden statue... golden padlock...... golden key... oh god, do I need to defeat Osera to get out of here?\n");
     }
 
     /**
@@ -336,18 +336,45 @@ public class TextAdventure {
 
         Item healthPack1 = new Item("health pack",
                 "A health pack that looks like it could heal you. There's a smiley face, with words of affirmation written in binary. How can I read this?",
-                true, "You feel warmth fall over you as you devour the health pack.", 0, 50, 0, true);
+                true, "You feel warmth fall over you as you devour the health pack.", 0, 30, 0, true);
 
         Item healthPack2 = new Item("health pack",
                 "A health pack that looks like it could heal you. There's a smiley face, with words of affirmation written in binary. How can I read this?",
-                true, "You feel warmth fall over you as you devour the health pack.", 0, 50, 0, true);
+                true, "You feel warmth fall over you as you devour the health pack.", 0, 30, 0, true);
         Item healthPack3 = new Item("health pack",
                 "A health pack that looks like it could heal you. There's a smiley face, with words of affirmation written in binary. How can I read this?",
-                true, "You feel warmth fall over you as you devour the health pack.", 0, 50, 0, true);
+                true, "You feel warmth fall over you as you devour the health pack.", 0, 30, 0, true);
         Item healthPack4 = new Item("health pack",
                 "A health pack that looks like it could heal you. There's a smiley face, with words of affirmation written in binary. How can I read this?",
+                true, "You feel warmth fall over you as you devour the health pack.", 0, 30, 0, true);
+        Item healthPack5 = new Item("health pack",
+                "A health pack that looks like it could heal you. There's a smiley face, with words of affirmation written in binary. How can I read this?",
                 true, "You feel warmth fall over you as you devour the health pack.", 0, 50, 0, true);
-        NPC osera = new NPC("Osera", 100, new Item[] { key }, oseraDescription(), 10);
+        Item icePick = new Item("ice pick",
+                "An ice pick that looks like it could be used to break ice.\n" +
+                        "Crude but... useful? You feel like you could use this to break the frozen computer.",
+                true, "Your body goes chill as you swing the ice pick. The ice around you instantly evaporates,"
+                        +
+                        " and you feel a rush of adrenaline. You feel stronger, healthier, and nordic. Your left hand is now shaped like a crude (but sharp) pickaxe.\n",
+                 5, 10, 10, true);
+        Item knife = new Item("dagger",
+                "A dagger that looks like it could be used to stab someone.\n" +
+                        "You could use this to hit Osera where it hurts.",
+                true, "The second you pull this dagger out of your pocket, you know you won't be able to let it go.\n" +
+                        "You feel like you're a lot more dangerous now. Hopefully you're not a glass cannon.\n", 0, 0, 10, true);
+
+        Item goldArmor = new Item("gold armor",
+                "A set of gold armor that looks like it could be used to protect you.\n" +
+                        "You could use this to protect yourself from Osera's attacks.",
+                true, "The second you put this armor on, you feel a rush of power. You feel like you're invincible.\n" +
+                        "You feel like you could take on the weight of the world. Or at least... the weight of Osera.\n", 40, 40, 0, true);
+
+        Item woodenArmor = new Item("wood armor", 
+        "A set of wooden armor. It looks chilly.", 
+        true, "You feel a little chilly putting on these wooden plates, but you also feel stronger.",
+        20, 20, 0, true);
+                
+        NPC osera = new NPC("Osera", 100, new Item[] { goldenKey }, oseraDescription(), 15);
         // Set items, obstacles and the NPC here.
 
         boolean running = true;
@@ -394,8 +421,7 @@ public class TextAdventure {
                     Thread.sleep(2000);
                     System.out.println("Nevertheless, it tried to warn you... but you didn't listen.\n");
                     Thread.sleep(2000);
-                    System.out
-                            .println("The floor instantly collapses beneath you, and you fall into an endless void.\n");
+                    System.out.println("The floor instantly collapses beneath you, and you fall into an endless void.\n");
                     Thread.sleep(2000);
                     System.out.println("You are dead! Or... you will be? Doesn't matter, GAME OVER!");
                     System.exit(0);
@@ -411,6 +437,7 @@ public class TextAdventure {
                 // Clear the NPC from the current waitstatus's room.
                 // it'll move in a new iteration of the loop
                 waitStatus++; // we need a way to track Osera's position.
+                // The player and NPC heal during waiting periods. Natural regeneration
                 player.setCurHealth(player.getCurHealth() + 5);
                 osera.setCurHealth(osera.getCurHealth() + 5);
                 continue;
@@ -418,7 +445,13 @@ public class TextAdventure {
                 helpMessage();
                 continue;
             } else if (input.contains("check") || input.contains("pocket") || input.contains("inventory")) {
-                System.out.println("You check your pockets. You have the following items:");
+                System.out.println("You take a moment to gauge your situation.");
+                Thread.sleep(2000);
+                System.out.println("You currently have " + player.getCurHealth() + " health.\n");
+                Thread.sleep(2000);
+                System.out.println("Your maximum health is " + player.getMaxHealth() + ".");
+                System.out.println("You currently have " + player.getInventory().size() + " items in your inventory.\n");
+                System.out.println("You dig around in your pockets. You have the following items:");
                 for (int i = 0; i < inventory.size(); i++) {
                     if (inventory.get(i) != null) {
                         System.out.println(inventory.get(i).getName());
@@ -464,16 +497,58 @@ public class TextAdventure {
                     }
                 }
             } else if (input.contains("pick up")) {
-                if (input.contains("key") && currentRoom.getName().equals("commons")) {
-                    System.out.println("You picked up the key!\n");
-                    hasKey = true;
-                    // inventory[inventorySize] = "placeholder"; // for now , will fix
-                } else {
-
+                String inputItem = input.split(" ")[2]; // Parser here?
+                for (int i = 0; i < currentRoom.getItems().length; i++) {
+                    if (currentRoom.getItems()[i].getName().contains(inputItem)) {
+                        System.out.print("You pick up the " + inputItem + ". ");
+                        System.out.println(currentRoom.getItems()[i].getDescription());
+                        player.addItem(currentRoom.getItems()[i]);
+                        currentRoom.removeItem(currentRoom.getItems()[i]);
+                        break;
+                    }
+                }
+            } else if (input.contains("use")) {
+                String inputItem = input.split(" ")[2]; // Parser here?
+                for (int i = 0; i < player.getInventory().size(); i++) {
+                    if (player.getInventory().get(i).getName().contains(inputItem)) {
+                        System.out.print("You use the " + inputItem + ". ");
+                        System.out.println(player.getInventory().get(i).getUseDescription());
+                        Item item = player.getInventory().get(i);
+                        if (item instanceof KeyItem) {
+                            KeyItem keyItem = (KeyItem) item;
+                            if (keyItem.getName().equals("key") && currentRoom.getName().equals("hallway4")) {
+                                keyItem.attemptUse(player, currentRoom, hallway4door);
+                                break;
+                            } else if (keyItem.getName().equals("golden key") && currentRoom.getName().equals("hallway5")) {
+                                keyItem.attemptUse(player, currentRoom, exitDoor);
+                                break;
+                            }
+                        } else {
+                            player.useItem(inputItem);
+                        }   
+                    }
+                }
+            } else if (input.contains("hide")) {
+                String inputItem = input.split(" ")[2]; // Parser here?
+                for (int i = 0; i < currentRoom.getObstacles().length; i++) {
+                    if (currentRoom.getObstacles()[i].getName().contains(inputItem) &&
+                            currentRoom.getObstacles()[i].isHideable()) {
+                        System.out.print("You hide behind the " + inputItem + ". ");
+                        System.out.println(currentRoom.getObstacles()[i].getDescription());
+                        player.setPlayerHidden(true);
+                        break;
+                    }
                 }
             } else if (input.contains("attack")) {
-                if (currentRoom.getName().equals("hallway5")) {
-                    System.out.println("You attack the professor!\n");
+                String inputItem = input.split(" ")[2]; // Parser here?
+                for (int i = 0; i < currentRoom.getObstacles().length; i++) {
+                    if (currentRoom.getObstacles()[i].getName().contains(inputItem) &&
+                            currentRoom.getObstacles()[i].isBreakable()) {
+                        // simple damage check here
+                        System.out.print("You attack the " + inputItem + ". ");
+                        // player.attack(inputItem); // not working
+                        break;
+                    }
                 }
             } else {
                 System.out.println("Invalid command! Type 'help' for a list of commands!");
