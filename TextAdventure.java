@@ -287,7 +287,7 @@ public class TextAdventure {
                 "It looks like a armor. I bet if you found a way to break the tree, you could get it.\n",
                 true, false, true);
         Obstacle iceComputer = new Obstacle("computer",
-                "A computer. It's frozen over, and you can't see the screen.\n" +
+                "A Linux computer. It's frozen over, and you can't see the screen.\n" +
                         "You feel like you could break it with something. Maybe an ice pick?\n" +
                         "There's something glowing through the screen. You see a glimmer of brown.\n",
                 false, false, true);
@@ -399,8 +399,8 @@ public class TextAdventure {
         commons.setObstacles(new Obstacle[] { desk, marbleStatue });
         hallway2.setObstacles(new Obstacle[] { (Obstacle) hallway2door });
         hallway3.setObstacles(new Obstacle[] { rock });
-        hallway4.setObstacles(new Obstacle[] { rock });
-        hallway5.setObstacles(new Obstacle[] { goldenHead });
+        hallway4.setObstacles(new Obstacle[] { (Obstacle) hallway4door, rock });
+        hallway5.setObstacles(new Obstacle[] { goldenHead, (Obstacle) exitDoor });
         thirty_eight_thirteen.setObstacles(new Obstacle[] { iceComputer });
         thirty_eight_eighteen.setObstacles(new Obstacle[] { tree });
 
@@ -515,10 +515,19 @@ public class TextAdventure {
                         printRoomOseraPos(Math.abs(player.getEffectiveHallwayPosition() - waitStatus));
                         continue;
                     }
+                    // General case : iterate through all the items and obstacles in the room + match
+                    // the name of the item to the input
                 }
                 String inputItem = input.split(" ")[2]; // Parser here?
                 for (int i = 0; i < currentRoom.getItems().length; i++) {
                     if (currentRoom.getItems()[i].getDescription().contains(inputItem)) {
+                        System.out.print("You look at the " + inputItem + ". ");
+                        System.out.println(currentRoom.getItems()[i].getDescription());
+                        break;
+                    }
+                }
+                for (int i = 0; i < currentRoom.getObstacles().length; i++) {
+                    if (currentRoom.getObstacles()[i].getDescription().contains(inputItem)) {
                         System.out.print("You look at the " + inputItem + ". ");
                         System.out.println(currentRoom.getItems()[i].getDescription());
                         break;

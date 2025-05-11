@@ -7,6 +7,8 @@ public class Obstacle {
     private boolean canHideIn;
     private boolean breakable;
     private boolean exists;
+    private int breakDamage;
+    private Item breakItem;
 
     /**
      * Constructor for Obstacle class
@@ -22,6 +24,18 @@ public class Obstacle {
         this.canHideIn = canHideIn;
         this.breakable = breakable;
         this.exists = true; // the obstacle exists when created
+        this.breakDamage = 100; // default break damage (player damage should never get this high)
+        this.breakItem = null; // default break item
+    }
+
+    public Obstacle(String name, String description, boolean canHideIn, boolean moveable, boolean breakable, int breakDamage, Item breakItem) {
+        this.name = name;
+        this.description = description;
+        this.canHideIn = canHideIn;
+        this.breakable = breakable;
+        this.exists = true; // the obstacle exists when created
+        this.breakDamage = breakDamage; // default break damage
+        this.breakItem = breakItem; // default break item
     }
 
     /**
