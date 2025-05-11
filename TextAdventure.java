@@ -345,11 +345,13 @@ public class TextAdventure {
 
         while (running) {
             System.out.println("Current room:" + currentRoom.getName() + "\n");
-            System.out.println(hallwayRooms[patternIndex(waitStatus)]);
+            int effectiveOseraPosition = patternIndex(waitStatus);
             currentRoom.printAdjacentRooms();
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine().toLowerCase();
             hallwayRooms[patternIndex(waitStatus)].setNpc(osera); // Set the NPC in the current waitstatus's room
+            System.out.println("You are currently at " + player.getEffectiveHallwayPosition() + "\n" +
+                    "Osera is currently at " + effectiveOseraPosition + "\n");
             if (input.contains("quit")) {
                 System.out.println("Thanks for playing! Goodbye!");
                 running = false;
