@@ -1,11 +1,11 @@
 /**
- * npc
+ * NPC
  */
 public class NPC {
     private String name;
     private int maxHealth;
     private int curHealth;
-    private String[] inventory;
+    private Item[] inventory; // Not applicable necessarily, but might be good if we grow our game
     private String description;
     private int damage;
 
@@ -17,7 +17,7 @@ public class NPC {
      * @param description Description of the NPC
      * @param damage Damage dealt by the NPC
      */
-    public NPC(String name, int health, String[] inventory, String description, int damage) {
+    public NPC(String name, int health, Item[] inventory, String description, int damage) {
         this.name = name;
         this.maxHealth = health;
         this.curHealth = health;
@@ -46,7 +46,7 @@ public class NPC {
      * gets the inventory of the npc
      * @return inventory
      */
-    public String[] getInventory() {
+    public Item[] getInventory() {
         return inventory;
     }
 
@@ -79,4 +79,23 @@ public class NPC {
     public int getDamage() {
         return damage;
     }
+
+    public Item dropItem() {
+        Item droppedItem = inventory[0]; // Drop the first item in the inventory.
+        inventory[0] = null; // Remove the item from inventory
+        System.out.println(name + " dropped " + droppedItem.getName() + ".");
+        return droppedItem;
+    }
+
+    public void transferLoot(Player player) {
+        System.out.println(name + " has dropped some loot!");
+        for (Item item : inventory) {
+            if (item != null) {
+                player.addItem(item);
+                System.out.println("You picked up " + item.getName() + ".");
+            }
+        }
+    }
+
+
 }

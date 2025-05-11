@@ -6,8 +6,9 @@ public class Item {
     private int healthBuff;
     private int healingValue;
     private int damageBuff;
+    private boolean spottable;
 
-    public Item(String name, String description, boolean useable, String useDesciption, int healthBuff, int healingValue, int damageBuff) {
+    public Item(String name, String description, boolean useable, String useDesciption, int healthBuff, int healingValue, int damageBuff, boolean spottable) {
         this.name = name;
         this.description = description;
         this.useable = useable;
@@ -15,6 +16,7 @@ public class Item {
         this.healthBuff = healthBuff;
         this.healingValue = healingValue;
         this.damageBuff = damageBuff;
+        this.spottable = spottable;
     }
 
     /**
@@ -84,5 +86,21 @@ public class Item {
         } else {
             System.out.println("This item cannot be used.");
         }
+    }
+
+    /**
+     * gets if item is spottable
+     * @return if item is spottable
+     */
+    public boolean isSpottable() {
+        return spottable;
+    }
+
+    /**
+     * sets if item is spottable
+     * @param spottable if item is spottable
+     */
+    public void setSpottable(boolean spottable) {
+        this.spottable = spottable;
     }
 }

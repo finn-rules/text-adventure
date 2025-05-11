@@ -133,4 +133,41 @@ public abstract class Room {
     public void setNpc(NPC npc) {
         this.npc = npc;
     }
+
+    /**
+     * examines the target
+     * @param parsedInput the string to investigate
+     */
+    public void examineTarget(String parsedInput) {
+        for (int i = 0; i < items.length; i++) {
+            if (items[i] != null && items[i].getName().equalsIgnoreCase(parsedInput)) {
+                System.out.println(items[i].getDescription());
+                // In the classes, we may want to override this method to add more functionality
+                return;
+            }
+        }
+        for (int i = 0; i < obstacles.length; i++) {
+            if (obstacles[i] != null && obstacles[i].getName().equalsIgnoreCase(parsedInput)) {
+                System.out.println(obstacles[i].getDescription());
+                return;
+            }
+        }
+        if (npc != null && npc.getName().equalsIgnoreCase(parsedInput)) {
+            System.out.println(npc.getDescription());
+            return;
+        }
+        System.out.println("You don't see that here. Maybe check your spelling?");
+    }
+
+    public void pickUpItem(String itemName, Player player) {
+        for (int i = 0; i < items.length; i++) {
+            if (items[i] != null && items[i].getName().equalsIgnoreCase(itemName)) {
+                System.out.println("You picked up " + items[i].getName() + ".");
+                items[i] = null; // Remove the item from the room's item array
+                return;
+            }
+        }
+        System.out.println("Item not found in this room. Maybe you already picked it up, or mistyped?");
+    }
+
 }

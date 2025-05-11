@@ -1,5 +1,7 @@
+import java.util.ArrayList;
+
 /**
- * player class 
+ * player class
  */
 public class Player {
     private int maxHealth;
@@ -8,14 +10,15 @@ public class Player {
     private int damage;
 
     private boolean hidden;
-    private Item[] inventory;
+    private ArrayList<Item> inventory;
 
     /**
      * Constructor for Player class
-     * @param health health of the player
+     * 
+     * @param health    health of the player
      * @param inventory inventory of the player
      */
-    public Player(int health, int damage, Item[] inventory) {
+    public Player(int health, int damage, ArrayList<Item> inventory) {
         this.curHealth = health;
         this.maxHealth = health;
         this.damage = damage;
@@ -28,8 +31,13 @@ public class Player {
         this.hidden = hidden;
     }
 
+    public boolean getPlayerHidden() {
+        return hidden;
+    }
+
     /**
      * sets the current health of player
+     * 
      * @param curHealth current health of player
      */
     public void setCurHealth(int curHealth) {
@@ -38,6 +46,7 @@ public class Player {
 
     /**
      * gets current health of player
+     * 
      * @return current health of player
      */
     public int getCurHealth() {
@@ -46,6 +55,7 @@ public class Player {
 
     /**
      * sets max health of player
+     * 
      * @return max health of player
      */
     public void setMaxHealth(int maxHealth) {
@@ -54,6 +64,7 @@ public class Player {
 
     /**
      * gets max health of player
+     * 
      * @return max health of player
      */
     public int getMaxHealth() {
@@ -68,8 +79,21 @@ public class Player {
         this.effectiveHallwayPosition = effectiveHallwayPosition;
     }
 
+    public void printInventory() {
+        System.out.println("Your inventory:");
+        for (int i = 0; i < inventory.size(); i++) {
+            Item item = inventory.get(i);
+            if (item != null) {
+                System.out.println("Slot " + (i + 1) + ": " + item.getName());
+            } else {
+                System.out.println("Slot " + (i + 1) + ": Empty slot");
+            }
+        }
+    }
+
     /**
      * applies damage to player
+     * 
      * @param damage damage to apply to player
      */
     public void takeDamage(int damage) {
@@ -78,16 +102,17 @@ public class Player {
             this.curHealth = 0;
             System.out.println("You have been defeated!");
             System.exit(0); // End the game
-        } else if (this.curHealth < this.maxHealth / 4) { 
+        } else if (this.curHealth < this.maxHealth / 4) {
             System.out.println("That one hurt... your health is low! Stay strong, maybe consider fleeing!");
         }
     }
 
     /**
      * gets inventory of player
+     * 
      * @return inventory
      */
-    public Item[] getInventory() {
+    public ArrayList<Item> getInventory() {
         return inventory;
     }
 
@@ -95,8 +120,18 @@ public class Player {
         this.damage = this.damage + damage;
     }
 
+    public Item getItem(String itemName) {
+        for (Item item : inventory) {
+            if (item != null && item.getName().equals(itemName)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
     /**
      * gets damage of player
+     * 
      * @return damage
      */
     public int getDamage() {
@@ -105,15 +140,23 @@ public class Player {
 
     /**
      * get inventory index of player
+     * 
      * @param index index of inventory
      * @return inventory at index
      * @throws IndexOutOfBoundsException if index is out of bounds
      */
     public Item getInventoryIndex(int index) {
-        if (index < 0 || index >= inventory.length) {
-            throw new IndexOutOfBoundsException("you did not choose an index in inventory the array!"); // or throw an exception
+        if (index < 0 || index >= inventory.size()) {
+            throw new IndexOutOfBoundsException("you did not choose an index in inventory the array!"); // or throw an
+                                                                                                        // exception
         }
-        return inventory[index];
+        return inventory.get(index);
     }
-}
 
+    public void addItem(Item item) {
+        inventory.add(item);
+        System.out.println("You picked up " + item.getName() + ".");
+    }
+
+
+}
