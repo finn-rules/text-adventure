@@ -35,6 +35,7 @@ public class TextAdventure {
                 "Look at <object>: look at the given object found in the room\n" +
                 "Check pocket/pockets/inventory: check the player's inventory for items\n" +
                 "Hide behind <object>: attempt to hide behind the given object found in the room\n" +
+                "Type <code> : if you encounter a code somewhere, and want to use it on a door.\n" +
                 "help: show this help message\n" +
                 "quit: quit the game.\n");
         Thread.sleep(2000);
@@ -247,31 +248,6 @@ public class TextAdventure {
         int waitStatus = 4;
         Room hallway1 = null, hallway2 = null, hallway3 = null, hallway4 = null, hallway5 = null, commons = null,
                 thirty_eight_thirteen = null, thirty_eight_eighteen = null;
-        hallway1 = new hallway1("hallway 1", null, new Room[] { hallway2 }, hallway1Description(), waitStatus,
-                new Obstacle[] {}, null);
-        hallway2 = new hallway2("hallway 2", null, new Room[] { hallway1, thirty_eight_thirteen, hallway3 },
-                hallway2Description(), waitStatus, new Obstacle[] {}, null);
-        hallway3 = new hallway3("hallway 3", null, new Room[] { hallway2, commons, hallway4 }, hallway3Description(),
-                waitStatus, new Obstacle[] {}, null);
-        hallway4 = new hallway4("hallway 4", null, new Room[] { hallway3, thirty_eight_eighteen, hallway5 },
-                hallway4Description(), waitStatus, new Obstacle[] {}, null);
-        hallway5 = new hallway5("hallway 5", null, new Room[] { hallway4 }, hallway5Description(), waitStatus,
-                new Obstacle[] {}, null);
-        commons = new commons("the commons", null, new Room[] { hallway3 }, commonsDescription(), waitStatus,
-                new Obstacle[] {}, null);
-        thirty_eight_thirteen = new thirty_eight_thirteen("3813", null, new Room[] { hallway2 }, thirteenDescription(),
-                waitStatus, new Obstacle[] {}, null);
-        thirty_eight_eighteen = new thirty_eight_eightteen("3818", null, new Room[] { hallway4 }, eighteenDescription(),
-                waitStatus, new Obstacle[] {}, null);
-
-        hallway1.setAdjacentRooms(new Room[] { hallway2, null, null, null });
-        hallway2.setAdjacentRooms(new Room[] { hallway3, hallway1, null, thirty_eight_thirteen });
-        hallway3.setAdjacentRooms(new Room[] { hallway4, hallway2, commons, null });
-        hallway4.setAdjacentRooms(new Room[] { hallway5, hallway3, null, thirty_eight_eighteen });
-        hallway5.setAdjacentRooms(new Room[] { null, hallway4, null, null });
-        commons.setAdjacentRooms(new Room[] { null, hallway3, null, null });
-        thirty_eight_thirteen.setAdjacentRooms(new Room[] { null, hallway2, null, null });
-        thirty_eight_eighteen.setAdjacentRooms(new Room[] { null, hallway4, null, null });
 
         Obstacle pottedPlant = new Obstacle("potted plant",
                 "A semi-large, potted plant. " +
@@ -286,6 +262,9 @@ public class TextAdventure {
                 "A desk filled with unfinished homework. You can see a strange lump under the homework.\n" +
                         "It's... key shaped, if that helps. Maybe pick up the homework?\n",
                 false, false, false);
+        Obstacle rock = new Obstacle("rock",
+                "A rock. It's pretty simple. Kinda big, I don't think you can pick it up.\n" +
+                        "I doubt this is useful.\n", false, false, false);
         Obstacle whiteboard = new Obstacle("whiteboard",
                 "A surpisingly clean whiteboard. It seems to be " +
                         "covered in some kind of unintelligible writing.\n It mentions something about "
@@ -298,6 +277,20 @@ public class TextAdventure {
                         +
                         "If you haven't already, I'd do that!",
                 false, false, false);
+        Obstacle goldenHead = new Obstacle("head statue",
+                "A golden head statue. You don't feel like there is anything here that you need to know.\n" + 
+                        "It has a plaque that reads 'The Head of the CS department'.\n" +
+                        "It's Osera. Funny.\n",
+                false, false, false);
+        Obstacle tree = new Obstacle("tree", 
+        "A tree. It's definitely odd to see this here. You see a glisten of something in the tree.\n" +
+                "It looks like a armor. I bet if you found a way to break the tree, you could get it.\n",
+                true, false, true);
+        Obstacle iceComputer = new Obstacle("computer",
+                "A computer. It's frozen over, and you can't see the screen.\n" +
+                        "You feel like you could break it with something. Maybe an ice pick?\n" +
+                        "There's something glowing through the screen. You see a glimmer of brown.\n",
+                false, false, true);
         Door hallway2door = new Door("door",
                 "You look at the door a little more closely.\n" +
                         "It looks sturdy - breaking it would be impossible. There's a 3 by 3 keypad on the door, with numbers 1-9.\n"
@@ -375,7 +368,42 @@ public class TextAdventure {
         20, 20, 0, true);
                 
         NPC osera = new NPC("Osera", 100, new Item[] { goldenKey }, oseraDescription(), 15);
-        // Set items, obstacles and the NPC here.
+
+        hallway1 = new hallway1("hallway 1", null, new Room[] { hallway2 }, hallway1Description(), waitStatus,
+                new Obstacle[] {}, null);
+        hallway2 = new hallway2("hallway 2", null, new Room[] { hallway1, thirty_eight_thirteen, hallway3 },
+                hallway2Description(), waitStatus, new Obstacle[] {}, null, hallway2door);
+        hallway3 = new hallway3("hallway 3", null, new Room[] { hallway2, commons, hallway4 }, hallway3Description(),
+                waitStatus, new Obstacle[] {}, null);
+        hallway4 = new hallway4("hallway 4", null, new Room[] { hallway3, thirty_eight_eighteen, hallway5 },
+                hallway4Description(), waitStatus, new Obstacle[] {}, null, hallway4door);
+        hallway5 = new hallway5("hallway 5", null, new Room[] { hallway4 }, hallway5Description(), waitStatus,
+                new Obstacle[] {}, null, exitDoor);
+        commons = new commons("the commons", null, new Room[] { hallway3 }, commonsDescription(), waitStatus,
+                new Obstacle[] {}, null);
+        thirty_eight_thirteen = new thirty_eight_thirteen("3813", null, new Room[] { hallway2 }, thirteenDescription(),
+                waitStatus, new Obstacle[] {}, null);
+        thirty_eight_eighteen = new thirty_eight_eightteen("3818", null, new Room[] { hallway4 }, eighteenDescription(),
+                waitStatus, new Obstacle[] {}, null);
+
+        hallway1.setAdjacentRooms(new Room[] { hallway2, null, null, null });
+        hallway2.setAdjacentRooms(new Room[] { hallway3, hallway1, null, thirty_eight_thirteen });
+        hallway3.setAdjacentRooms(new Room[] { hallway4, hallway2, commons, null });
+        hallway4.setAdjacentRooms(new Room[] { hallway5, hallway3, null, thirty_eight_eighteen });
+        hallway5.setAdjacentRooms(new Room[] { null, hallway4, null, null });
+        commons.setAdjacentRooms(new Room[] { null, hallway3, null, null });
+        thirty_eight_thirteen.setAdjacentRooms(new Room[] { null, hallway2, null, null });
+        thirty_eight_eighteen.setAdjacentRooms(new Room[] { null, hallway4, null, null });
+
+        hallway1.setObstacles(new Obstacle[] { whiteboard, pottedPlant });
+        commons.setObstacles(new Obstacle[] { desk, marbleStatue });
+        hallway2.setObstacles(new Obstacle[] { (Obstacle) hallway2door });
+        hallway3.setObstacles(new Obstacle[] { rock });
+        hallway4.setObstacles(new Obstacle[] { rock });
+        hallway5.setObstacles(new Obstacle[] { goldenHead });
+        thirty_eight_thirteen.setObstacles(new Obstacle[] { iceComputer });
+        thirty_eight_eighteen.setObstacles(new Obstacle[] { tree });
+
 
         boolean running = true;
 
@@ -498,7 +526,14 @@ public class TextAdventure {
                 }
             } else if (input.contains("pick up")) {
                 String inputItem = input.split(" ")[2]; // Parser here?
+                if (currentRoom.getItems() == null) {
+                    System.out.println("There are no more items in this room!");
+                    continue;
+                }
                 for (int i = 0; i < currentRoom.getItems().length; i++) {
+                    if (currentRoom.getItems()[i] == null) {
+                        continue;
+                    }
                     if (currentRoom.getItems()[i].getName().contains(inputItem)) {
                         System.out.print("You pick up the " + inputItem + ". ");
                         System.out.println(currentRoom.getItems()[i].getDescription());
@@ -541,6 +576,7 @@ public class TextAdventure {
                 }
             } else if (input.contains("attack")) {
                 String inputItem = input.split(" ")[2]; // Parser here?
+                // Sneak attack opportunity/check here?
                 for (int i = 0; i < currentRoom.getObstacles().length; i++) {
                     if (currentRoom.getObstacles()[i].getName().contains(inputItem) &&
                             currentRoom.getObstacles()[i].isBreakable()) {
@@ -563,63 +599,6 @@ public class TextAdventure {
             // attack" bonus when they attack the
             // professor. Or, they can wait a turn to see if the professor will leave the
             // room, which will give them a chance to escape.
-            /*
-             * Obstacle pottedPlant = new Obstacle("potted plant",
-             * "A semi-large, potted plant. " +
-             * "It's taller than you are, and covered in dirt. Its leaves are wilted," +
-             * " but massive. You definitely could hide behind it.", true, false, true);
-             * 
-             * Obstacle whiteboard = new Obstacle("whiteboard",
-             * "A surpisingly clean whiteboard. It seems to be " +
-             * "covered in some kind of unintelligible writing.\n It mentions something about "
-             * +
-             * "how terrible and annoying documentation is. There's also a sequence of letters...?\n "
-             * +
-             * "It reads 'IV, IX, VII, II'. Who left this here? It looks like a code of some kind.\n "
-             * +
-             * "It also says 'If you haven't already, check your pockets!'\n This seems a lot less vague. "
-             * +
-             * "If you haven't already, I'd do that!",
-             * false, false, false);
-             * 
-             * Obstacle hallway2door = new Obstacle("door",
-             * "You look at the door a little more closely.\n" +
-             * "It looks sturdy - breaking it would be impossible. There's a 3 by 3 keypad on the door, with numbers 1-9.\n"
-             * +
-             * "You feel like you've been in this room before. You've been through this door! Why? It feels familiar.\n"
-             * +
-             * "You feel like you should know the code to this door. Maybe someone left a clue?"
-             * ,
-             * false, false, false); // TODO: add a way to open the door - prompt the user
-             * to enter a code?
-             * 
-             * Obstacle hallway4door = new Obstacle("lab door",
-             * "You notice a door to your right. You feel an overwhelming sense of dread.\n"
-             * +
-             * "This one has a keypad too. However, it's a little different. There are two parts to the keypad, and a note on the door.\n"
-             * +
-             * "The note reads: 'I expect my research students to be the cream of the crop - this problem should be easy for you.\n"
-             * +
-             * "Crap... I don't remember being a research student. I don't even remember my name! But I know I want to get out of here.\n"
-             * +
-             * "You read the note more carefully. It says:" +
-             * "" +
-             * "Under the keypad, there's also what appears to be a coin slot. Interesting... do I have a coin?\n"
-             * ,
-             * false, false, false);
-             * 
-             * public void pickUpItem(Player player, String item) {
-             * String[] items = getItems();
-             * for (int i = 0; i < items.length; i++) {
-             * if (items[i].equals(item)) {
-             * System.out.println("You picked up " + item + ".");
-             * this.removeItem(item); // Remove the item from the room
-             * return;
-             * }
-             * }
-             * System.out.println("Item not found in this room.");
-             * }
-             */
         }
     }
 }

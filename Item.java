@@ -12,7 +12,7 @@ public class Item {
         this.name = name;
         this.description = description;
         this.useable = useable;
-        this.useDescription = useDesciption;
+        this.useDescription = useDescription;
         this.healthBuff = healthBuff;
         this.healingValue = healingValue;
         this.damageBuff = damageBuff;

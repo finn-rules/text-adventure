@@ -66,6 +66,10 @@ public abstract class Room {
         return items;
     }
 
+    public void setItems(Item[] items) {
+        this.items = items;
+    }
+
     /**
      * removes item from room
      * @param item item to remove
@@ -147,6 +151,12 @@ public abstract class Room {
     public Obstacle[] getObstacles() {
         return obstacles;
     }
+
+    public void setObstacles(Obstacle[] obstacles) {
+        this.obstacles = obstacles;
+    }
+
+
     public NPC getNpc() {
         return npc;
     }
