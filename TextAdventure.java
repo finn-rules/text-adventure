@@ -150,7 +150,8 @@ public class TextAdventure {
      * @return description of the room
      */
     public static String hallway2Description() {
-        return ("\nYou look around this hallway. To your right, you see a door with a locked code on it. Through the window you can see many computers.\n " +
+        return ("\nYou look around this hallway. To your right, you see a door with a locked code on it. Through the window you can see many computers.\n "
+                +
                 "Other than that, there's nothing special. The hallway stretches on, and is dark and ominous.\n");
     }
 
@@ -160,7 +161,8 @@ public class TextAdventure {
      * @return description of the room
      */
     public static String hallway3Description() {
-        return ("\nYou look around this hallway.\n To your left, you can see the cs commons, with a veil of mist separating the two rooms.\n " +
+        return ("\nYou look around this hallway.\n To your left, you can see the cs commons, with a veil of mist separating the two rooms.\n "
+                +
                 "You feel warm, and safe to enter the commons if you want.\nThere's a health pack in the corner.");
     }
 
@@ -170,7 +172,8 @@ public class TextAdventure {
      * @return description of the room
      */
     public static String hallway4Description() {
-        return ("\nYou look around this hallway.\n To your right, you can see a locked door that also needs a code for entry, and a key.\n" +
+        return ("\nYou look around this hallway.\n To your right, you can see a locked door that also needs a code for entry, and a key.\n"
+                +
                 "The door has a post it note? It might be worth investigating.\n");
     }
 
@@ -180,9 +183,11 @@ public class TextAdventure {
      * @return description of the room
      */
     public static String hallway5Description() {
-        return ("You've finally reached the end of the hallway. A golden, familiar looking head statue sits in front of you.\n" +
+        return ("You've finally reached the end of the hallway. A golden, familiar looking head statue sits in front of you.\n"
+                +
                 "On it, there's a plaque that reads 'The Head of the CS department'.\n" +
-                "...really? It's Osera's head. He's got a good sense of humor, but is this really where our tuition money is going?\n" +
+                "...really? It's Osera's head. He's got a good sense of humor, but is this really where our tuition money is going?\n"
+                +
                 "You can see a door to your left! It's the exit! It's locked, with a massive golden padlock.\n" +
                 "Certainly a massive golden padlock needs a massive golden key.\n" +
                 "Golden statue... golden padlock... golden key... oh god, do I need to defeat Osera to get out of here?\n");
@@ -300,7 +305,7 @@ public class TextAdventure {
                         "You feel like you've been in this room before. You've been through this door! Why? It feels familiar.\n"
                         +
                         "You feel like you should know the code to this door. Maybe someone left a clue?",
-                 false, false, true, "4972");
+                false, false, true, "4972");
         Door hallway4door = new Door("lab door",
                 "You notice a door to your right. You feel an overwhelming sense of dread.\n"
                         +
@@ -317,8 +322,8 @@ public class TextAdventure {
 
         Door exitDoor = new Door("exit door",
                 "You look at the exit door. It looks like it could be opened with a golden key.\n" +
-                "So close... maybe Osera has the key?\n",
-                false, false, true, "golden key");   
+                        "So close... maybe Osera has the key?\n",
+                false, false, true, "golden key");
         KeyItem key = new KeyItem("key",
                 "A key that looks like it could open a lab door. It has a strange symbol on it.\n It looks like a sideways infinity symbol... and a C?",
                 true, "You put the key in the keyhole of the lab door, turn, and hear a click. Nice!",
@@ -329,17 +334,28 @@ public class TextAdventure {
                 true, "You put the golden key in the keyhole of the exit door, turn, and hear a click. Nice!",
                 0, 0, 0, false, hallway5);
 
-        Item healthPack = new Item("health pack",
+        Item healthPack1 = new Item("health pack",
                 "A health pack that looks like it could heal you. There's a smiley face, with words of affirmation written in binary. How can I read this?",
                 true, "You feel warmth fall over you as you devour the health pack.", 0, 50, 0, true);
 
+        Item healthPack2 = new Item("health pack",
+                "A health pack that looks like it could heal you. There's a smiley face, with words of affirmation written in binary. How can I read this?",
+                true, "You feel warmth fall over you as you devour the health pack.", 0, 50, 0, true);
+        Item healthPack3 = new Item("health pack",
+                "A health pack that looks like it could heal you. There's a smiley face, with words of affirmation written in binary. How can I read this?",
+                true, "You feel warmth fall over you as you devour the health pack.", 0, 50, 0, true);
+        Item healthPack4 = new Item("health pack",
+                "A health pack that looks like it could heal you. There's a smiley face, with words of affirmation written in binary. How can I read this?",
+                true, "You feel warmth fall over you as you devour the health pack.", 0, 50, 0, true);
         NPC osera = new NPC("Osera", 100, new Item[] { key }, oseraDescription(), 10);
         // Set items, obstacles and the NPC here.
 
         boolean running = true;
 
         ArrayList<Item> inventory = new ArrayList<>();
-        Player player = new Player(100, 0, inventory, 20);
+        inventory.add(healthPack1);
+        inventory.add(healthPack2);
+        Player player = new Player(20, 5, inventory, 20);
         Room currentRoom = hallway1;
         Room[] hallwayRooms = { hallway1, hallway2, hallway3, hallway4, hallway5 };
 
@@ -358,11 +374,15 @@ public class TextAdventure {
                 scanner.close();
                 System.exit(0);
             }
-            if (waitStatus == player.getEffectiveHallwayPosition()) {
+            if (effectiveOseraPosition == player.getEffectiveHallwayPosition() && player.getPlayerHidden() == false &&
+                    currentRoom.getName().contains("hallway")) {
                 System.out.println("You have encountered Professor Osera!\n" +
                         "Misstep or not, he's ready to fight... this will be hard to avoid!\n");
+                Thread.sleep(2000);
                 System.out.println("You can attack him! But do you feel strong enough? That's your call!\n");
+                Thread.sleep(2000);
                 System.out.println("Would you rather be dead, or a CS major? That's a tough question.\n");
+                Thread.sleep(2000);
                 CombatSituation combat = new CombatSituation(player, osera);
             }
             if (player.getInventory().size() >= 18) {
@@ -387,7 +407,8 @@ public class TextAdventure {
             }
             if (input.contains("wait")) {
                 System.out.println("Waiting...");
-                hallwayRooms[patternIndex(waitStatus)].setNpc(null); // Clear the NPC from the current waitstatus's room, 
+                hallwayRooms[patternIndex(waitStatus)].setNpc(null); 
+                // Clear the NPC from the current waitstatus's room.
                 // it'll move in a new iteration of the loop
                 waitStatus++; // we need a way to track Osera's position.
                 player.setCurHealth(player.getCurHealth() + 5);
@@ -407,9 +428,11 @@ public class TextAdventure {
                 player.setPlayerHidden(false);
                 if (input.contains("forward") && currentRoom.getAdjacentRoomsIndex(0) != null) {
                     currentRoom = currentRoom.getAdjacentRoomsIndex(0);
+                    player.setEffectiveHallwayPosition(player.getEffectiveHallwayPosition() + 1);
                     System.out.println("\nYou are now in " + currentRoom.getName() + "\n");
                 } else if (input.contains("backward") && currentRoom.getAdjacentRoomsIndex(1) != null) {
                     currentRoom = currentRoom.getAdjacentRoomsIndex(1);
+                    player.setEffectiveHallwayPosition(player.getEffectiveHallwayPosition() - 1);
                     System.out.println("\nYou are now in " + currentRoom.getName() + "\n");
                 } else if (input.contains("right") && currentRoom.getAdjacentRoomsIndex(2) != null) {
                     currentRoom = currentRoom.getAdjacentRoomsIndex(2);
@@ -421,8 +444,6 @@ public class TextAdventure {
                     System.out.println(
                             "You can't go that way! If you were hidden, your attempt to go somewhere ruined your hiding spot!\n");
                 }
-                System.out.println(currentRoom.getLookAroundDescription());
-                continue;
             } else if (input.contains("look")) { // how can I change this to a more abstract version?
                 if (input.contains("around")) {
                     System.out.println(currentRoom.getLookAroundDescription());
