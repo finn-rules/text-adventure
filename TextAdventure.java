@@ -410,7 +410,7 @@ public class TextAdventure {
         ArrayList<Item> inventory = new ArrayList<>();
         inventory.add(healthPack1);
         inventory.add(healthPack2);
-        Player player = new Player(20, 5, inventory, 20);
+        Player player = new Player(100, 5, inventory, 20);
         Room currentRoom = hallway1;
         Room[] hallwayRooms = { hallway1, hallway2, hallway3, hallway4, hallway5 };
 

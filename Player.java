@@ -180,9 +180,9 @@ public class Player {
                 System.out.println("You gained " + item.getDamageBuff() + " damage!\n" +
                         "Your now will deal " + this.getDamage() + " damage!");
             }
-            if (item.getHealthBuff() > 0) {
-                this.setCurHealth(item.getHealthBuff() + this.getCurHealth());
-                System.out.println("You healed " + item.getHealthBuff() + " health!");
+            if (item.getHealingValue() > 0) {
+                this.setCurHealth(item.getHealingValue() + this.getCurHealth());
+                System.out.println("You healed " + item.getHealingValue() + " health!");
             }
         } else {
             System.out.println("This item cannot be used.");

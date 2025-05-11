@@ -56,6 +56,9 @@ public class CombatSituation {
                 System.out.println("I wouldn't say you took the coward's way out. (Unless you die...)");
                 Thread.sleep(2000);
                 System.out.println(npc.getName() + " will still take a stab at you.");
+                player.takeDamage(npc.getDamage());
+                break; // Exit the combat loop
+
             } else if (command.equals("check pockets")) {
                 player.printInventory();
             } else if (command.equals("assess situation")) {

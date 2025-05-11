@@ -82,4 +82,12 @@ public class Item {
     public void setSpottable(boolean spottable) {
         this.spottable = spottable;
     }
+
+    public int getHealingValue() {
+        return healingValue;
+    }
+
+    public void setHealingValue(int healingValue) {
+        this.healingValue = healingValue;
+    }
 }
