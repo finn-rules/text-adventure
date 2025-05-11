@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /*
@@ -134,11 +135,11 @@ public class TextAdventure {
      * @return description of the room
      */
     public static String hallway1Description() {
-        return ("\nYou look around the hallway. To your right, you see a whiteboard, with what looks like writing on it as well as "
+        return ("\nYou look around the hallway.\n To your right, you see a whiteboard, with what looks like writing on it\n as well as "
                 +
                 "a terrifying, horror looking drawing and some discourse about the ethics of using AI generated art.\n To your left there is an odd potted plant, "
                 +
-                "seemingly out of place as no computer science student even goes outside to know what a plant would look like.\n In front of you the hallway "
+                "seemingly out of place...\n as no computer science student even goes outside to know what a plant would look like.\n In front of you the hallway "
                 +
                 "stretches on, and you can hear noises coming from the dark abyss.\n");
     }
@@ -337,14 +338,14 @@ public class TextAdventure {
 
         boolean running = true;
 
-        Item[] inventory = new Item[20];
-        int inventorySize = 0;
-        Player player = new Player(100, 0, inventory);
+        ArrayList<Item> inventory = new ArrayList<>();
+        Player player = new Player(100, 0, inventory, 20);
         Room currentRoom = hallway1;
         Room[] hallwayRooms = { hallway1, hallway2, hallway3, hallway4, hallway5 };
 
         while (running) {
             System.out.println("Current room:" + currentRoom.getName() + "\n");
+            System.out.println(hallwayRooms[patternIndex(waitStatus)]);
             currentRoom.printAdjacentRooms();
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine().toLowerCase();
@@ -362,8 +363,8 @@ public class TextAdventure {
                 System.out.println("Would you rather be dead, or a CS major? That's a tough question.\n");
                 CombatSituation combat = new CombatSituation(player, osera);
             }
-            if (inventorySize >= 18) {
-                if (inventorySize >= 20) {
+            if (player.getInventory().size() >= 18) {
+                if (player.getInventory().size() >= 20) {
                     System.out.println(
                             "You feel the floor rumbling beneath you, but your pockets are somehow holding strong.\n");
                     Thread.sleep(2000);
@@ -378,7 +379,7 @@ public class TextAdventure {
                     System.exit(0);
                 }
                 System.out.println("Your pockets are absolutely stuffed - how did you even get this much?");
-                System.out.println("You can only pick up " + (19 - inventorySize) + " more item(s).");
+                System.out.println("You can only pick up " + (19 - player.getInventory().size()) + " more item(s).");
                 System.out.println("You have a strange feeling that if you pick up more than 19 items, " +
                         "you will fall through the floor and die. Just a hunch. I wouldn't test it.");
             }
@@ -386,16 +387,18 @@ public class TextAdventure {
                 System.out.println("Waiting...");
                 hallwayRooms[patternIndex(waitStatus)].setNpc(null); // Clear the NPC from the current waitstatus's room, 
                 // it'll move in a new iteration of the loop
-                waitStatus++;
+                waitStatus++; // we need a way to track Osera's position.
+                player.setCurHealth(player.getCurHealth() + 5);
+                osera.setCurHealth(osera.getCurHealth() + 5);
                 continue;
             } else if (input.contains("help")) {
                 helpMessage();
                 continue;
             } else if (input.contains("check") || input.contains("pocket") || input.contains("inventory")) {
                 System.out.println("You check your pockets. You have the following items:");
-                for (int i = 0; i < inventory.length; i++) {
-                    if (inventory[i] != null) {
-                        System.out.println(inventory[i]);
+                for (int i = 0; i < inventory.size(); i++) {
+                    if (inventory.get(i) != null) {
+                        System.out.println(inventory.get(i).getName());
                     }
                 }
             } else if (input.contains("go")) {

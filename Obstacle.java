@@ -21,7 +21,7 @@ public class Obstacle {
         this.description = description;
         this.canHideIn = canHideIn;
         this.breakable = breakable;
-        this.exists = true; // Assuming the obstacle exists when created
+        this.exists = true; // the obstacle exists when created
     }
 
     /**
@@ -44,10 +44,10 @@ public class Obstacle {
      * attempts to hide behind the obstacle
      * @return if the player can hide behind the obstacle
      */
-    public boolean attemptHide() {
+    public boolean attemptHide(Player player) {
         if (canHideIn) {
             System.out.println("You hide behind the " + name + ".");
-            // Set the player's hidden status to true? how?
+            player.setPlayerHidden(true);
             return true;
         } else {
             System.out.println("You can't hide behind the " + name + ".");

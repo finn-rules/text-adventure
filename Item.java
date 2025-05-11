@@ -67,27 +67,6 @@ public class Item {
         return damageBuff;
     }
 
-    public void use(Player player) {
-        if (this.isUseable()) {
-            System.out.println(this.getUseDesciption());
-            if (healthBuff > 0) {
-                player.setMaxHealth(healthBuff + player.getMaxHealth());
-                System.out.println("You gained " + healthBuff + " health!");
-            }
-            if (damageBuff > 0) {
-                player.increaseDamage(damageBuff);
-                System.out.println("You gained " + damageBuff + " damage!\n" +
-                        "Your now will deal " + player.getDamage() + " damage!");
-            }
-            if (healingValue > 0) {
-                player.setCurHealth(healingValue + player.getCurHealth());
-                System.out.println("You healed " + healingValue + " health!");
-            }
-        } else {
-            System.out.println("This item cannot be used.");
-        }
-    }
-
     /**
      * gets if item is spottable
      * @return if item is spottable

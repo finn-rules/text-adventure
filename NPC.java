@@ -97,5 +97,12 @@ public class NPC {
         }
     }
 
+    public void setCurHealth(int i) {
+        this.curHealth = i;
+        if (this.curHealth > maxHealth) {
+            this.curHealth = maxHealth;
+        }
+    }
+
 
 }

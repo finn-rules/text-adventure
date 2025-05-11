@@ -11,6 +11,8 @@ public class Player {
 
     private boolean hidden;
     private ArrayList<Item> inventory;
+    private int inventoryCap = 20; // default size of inventory
+    private int inventorySize = 0; // total size of inventory
 
     /**
      * Constructor for Player class
@@ -18,13 +20,15 @@ public class Player {
      * @param health    health of the player
      * @param inventory inventory of the player
      */
-    public Player(int health, int damage, ArrayList<Item> inventory) {
+    public Player(int health, int damage, ArrayList<Item> inventory, int inventoryCap) {
         this.curHealth = health;
         this.maxHealth = health;
         this.damage = damage;
         this.effectiveHallwayPosition = 0; // starting position is 0
         this.hidden = false;
         this.inventory = inventory;
+        this.inventoryCap = inventoryCap;
+        this.inventorySize = 0;
     }
 
     public void setPlayerHidden(boolean hidden) {
@@ -42,6 +46,9 @@ public class Player {
      */
     public void setCurHealth(int curHealth) {
         this.curHealth = curHealth;
+        if (this.curHealth > this.maxHealth) {
+            this.curHealth = this.maxHealth;
+        }
     }
 
     /**
@@ -158,5 +165,30 @@ public class Player {
         System.out.println("You picked up " + item.getName() + ".");
     }
 
-
+    public void useItem(String itemName) {
+        Item item = getItem(itemName);
+        if (item == null) {
+            System.out.println("You don't have that item (yet?).");
+            return;
+        }
+        if (item.isUseable()) {
+            System.out.println(item.getUseDesciption());
+            if (item.getHealthBuff() > 0) {
+                this.setMaxHealth(item.getHealthBuff() + this.getMaxHealth());
+                System.out.println("You gained " + item.getHealthBuff() + " max health!");
+            }
+            if (item.getDamageBuff() > 0) {
+                this.increaseDamage(item.getDamageBuff());
+                System.out.println("You gained " + item.getDamageBuff() + " damage!\n" +
+                        "Your now will deal " + this.getDamage() + " damage!");
+            }
+            if (item.getHealthBuff() > 0) {
+                this.setCurHealth(item.getHealthBuff() + this.getCurHealth());
+                System.out.println("You healed " + item.getHealthBuff() + " health!");
+            }
+        } else {
+            System.out.println("This item cannot be used.");
+        }
+        inventory.remove(item);
+    }
 }
