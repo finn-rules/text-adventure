@@ -40,6 +40,7 @@ public class CombatSituation {
             System.out.println("Your turn! What would you like to do?");
             Scanner scanner = new Scanner(System.in);
             String command = scanner.nextLine();
+            scanner.close();
             if (command.equals("attack")) {
                 npc.takeDamage(player.getDamage());
             } else if (command.startsWith("use ")) {
