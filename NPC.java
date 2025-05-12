@@ -103,6 +103,4 @@ public class NPC {
             this.curHealth = maxHealth;
         }
     }
-
-
 }

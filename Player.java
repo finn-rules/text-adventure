@@ -12,7 +12,7 @@ public class Player {
     private boolean hidden;
     private ArrayList<Item> inventory;
     private int inventoryCap = 20; // default size of inventory
-    private int inventorySize = 0; // total size of inventory
+    private int inventorySize = 0;  // we didn't end up using this. 
 
     /**
      * Constructor for Player class
