@@ -468,7 +468,7 @@ public class TextAdventure {
         Room[] hallwayRooms = { hallway1, hallway2, hallway3, hallway4, hallway5 };
 
         while (running) {
-            System.out.println("Current room: " + currentRoom.getName() + "\n");
+            // System.out.println("Current room: " + currentRoom.getName() + "\n");
             int effectiveOseraPosition = patternIndex(waitStatus);
             // currentRoom.printAdjacentRooms();
             Scanner scanner = new Scanner(System.in);
