@@ -45,6 +45,12 @@ public class Door extends Obstacle {
         return encoded;
     }
 
+    public void crackCode() {
+        if (encoded) {
+            this.encoded = false;
+        }
+    }
+
     public String getCode() {
         return code;
     }
@@ -64,10 +70,15 @@ public class Door extends Obstacle {
         }
     }
 
+    /**
+     * ultimately unused ; we thought it might be useful to compare a door's ideal key to the current key
+     * @param key : a KeyItem to compare
+     * @return : whether or not the keys were the same, with printed output.
+     */
     public boolean compareKey(KeyItem key) {
         if (key.getName().equals(keyName)) {
             System.out.println("The key fits the door. You can unlock it.");
-            System.out.println("You used the " + key.getName() + " to unlock the " + getName() + ".");
+            System.out.println("You used the " + key.getName() + " to unlock the " + getName() + ".\n");
             return true;
         } else {
             System.out.println("The key does not fit the door.");
@@ -83,7 +94,9 @@ public class Door extends Obstacle {
             this.locked = false;
             System.out.println("The " + getName() + " has been unlocked.");
         } else {
-            System.out.println("Though the key worked, you haven't tried the code of this door yet!");
+            this.locked = false;
+            System.out.println("Though the key worked, you haven't tried the code of this door yet!\n"
+            + "You will have to do a bit more to unlock it.");
         }
     }
 }

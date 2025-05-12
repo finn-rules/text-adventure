@@ -83,9 +83,12 @@ public abstract class Room {
      */
     public void removeItem(Item item) {
         for (int i = 0; i < items.length; i++) {
+            if(items[i] == null) {
+                continue;
+            }
             if (items[i].equals(item)) {
                 items[i] = null; // Remove the item
-                System.out.println("You removed " + item + " from the room.");
+                System.out.println("You removed " + item.getName() + " from the room.");
                 return;
             }
         }

@@ -12,7 +12,7 @@ public class Player {
     private boolean hidden;
     private ArrayList<Item> inventory;
     private int inventoryCap = 20; // default size of inventory
-    private int inventorySize = 0;  // we didn't end up using this. 
+    private int inventorySize = 0; // we didn't end up using this.
 
     /**
      * Constructor for Player class
@@ -125,9 +125,15 @@ public class Player {
         this.damage = this.damage + damage;
     }
 
+    /**
+     * gets the item that the player types from their inventory.
+     * 
+     * @param itemName : the name of the item, as a string.
+     * @return the item (if it was in the inventory)
+     */
     public Item getItem(String itemName) {
         for (Item item : inventory) {
-            if (item != null && item.getName().equals(itemName)) {
+            if (item != null && item.getName().split(" ")[0].equals(itemName)) {
                 return item;
             }
         }
