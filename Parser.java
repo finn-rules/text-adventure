@@ -1,3 +1,4 @@
+// IGNORE - NOT USED
 public class Parser {
     private static final String[] VALID_COMMANDS = {
         "go", "pick up", "use", "attack", "look around", "look at", "check", "hide behind", "help", "quit"
