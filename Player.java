@@ -31,10 +31,18 @@ public class Player {
         this.inventorySize = 0;
     }
 
+    /**
+     * set the player's hidden status
+     * @param hidden whether or not the player is hidden
+     */
     public void setPlayerHidden(boolean hidden) {
         this.hidden = hidden;
     }
 
+    /**
+     * get whether or not the player is hidden
+     * @return whether or not the player is hidden
+     */
     public boolean getPlayerHidden() {
         return hidden;
     }
@@ -78,14 +86,25 @@ public class Player {
         return maxHealth;
     }
 
+    /**
+     * get where the user is poised in the hallway : useful for printing osera distance.
+     * @return where the user is poised in the hallway (in or out)
+     */
     public int getEffectiveHallwayPosition() {
         return effectiveHallwayPosition;
     }
 
+    /**
+     * place the player at the hallway's index
+     * @param effectiveHallwayPosition : where we want to place the player
+     */
     public void setEffectiveHallwayPosition(int effectiveHallwayPosition) {
         this.effectiveHallwayPosition = effectiveHallwayPosition;
     }
 
+    /**
+     * Print the player's inventory item names.
+     */
     public void printInventory() {
         System.out.println("Your inventory:");
         for (int i = 0; i < inventory.size(); i++) {
@@ -121,6 +140,10 @@ public class Player {
         return inventory;
     }
 
+    /**
+     * Boost the player's damage.
+     * @param damage : the damage to add.
+     */
     public void increaseDamage(int damage) {
         this.damage = this.damage + damage;
     }
@@ -164,11 +187,19 @@ public class Player {
         return inventory.get(index);
     }
 
+    /**
+     * Add an item to the player's inventory
+     * @param item the item to add
+     */
     public void addItem(Item item) {
         inventory.add(item);
         System.out.println("You picked up " + item.getName() + ".");
     }
 
+    /**
+     * use an item. 
+     * @param itemName the item to use
+     */
     public void useItem(String itemName) {
         Item item = getItem(itemName);
         if (item == null) {

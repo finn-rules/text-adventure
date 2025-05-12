@@ -12,7 +12,9 @@ public class Door extends Obstacle {
      * @param canHideIn   Whether the player can hide in the door
      * @param breakable   Whether the door is breakable
      * @param locked      Whether the door is locked
+     * @param encoded     Whether the door has a code
      * @param keyName     Name of the key to unlock the door
+     * @param codeString  Name of the code to unlock the door
      */
     public Door(String name, String description, boolean canHideIn, boolean breakable, boolean locked, boolean encoded,
             String keyName, String codeString) {
@@ -23,6 +25,16 @@ public class Door extends Obstacle {
         this.code = codeString;
     }
 
+    /**
+     * Alternate constructor for Door class (more simple)
+     * 
+     * @param name        Name of the door
+     * @param description Description of the door
+     * @param canHideIn   Whether the player can hide in the door
+     * @param breakable   Whether the door is breakable
+     * @param locked      Whether the door is locked
+     * @param keyName     Name of the key to unlock the door
+     */
     public Door(String name, String description, boolean canHideIn, boolean breakable, boolean locked,
             String keyName) {
         super(name, description, false, false, false);
@@ -41,16 +53,29 @@ public class Door extends Obstacle {
         return locked;
     }
 
+    /**
+     * checks whether or not the door has had its code cracked
+     * 
+     * @return whether or not the door has had its code cracked
+     */
     public boolean isEncoded() {
         return encoded;
     }
 
+    /**
+     * if the code hasn't been cracked, crack it
+     */
     public void crackCode() {
         if (encoded) {
             this.encoded = false;
         }
     }
 
+    /**
+     * gets the code needed for a door
+     * 
+     * @return the code needed for a door
+     */
     public String getCode() {
         return code;
     }
@@ -64,6 +89,11 @@ public class Door extends Obstacle {
         return keyName;
     }
 
+    /**
+     * Compare the code of the door to an attempt (i don't think we used this)
+     * 
+     * @param codeAtt : the attempted string/code
+     */
     public void compareCodes(String codeAtt) {
         if (this.code.equals(codeAtt)) {
             this.encoded = false;
@@ -71,7 +101,9 @@ public class Door extends Obstacle {
     }
 
     /**
-     * ultimately unused ; we thought it might be useful to compare a door's ideal key to the current key
+     * ultimately unused ; we thought it might be useful to compare a door's ideal
+     * key to the current key
+     * 
      * @param key : a KeyItem to compare
      * @return : whether or not the keys were the same, with printed output.
      */
@@ -96,7 +128,7 @@ public class Door extends Obstacle {
         } else {
             this.locked = false;
             System.out.println("Though the key worked, you haven't tried the code of this door yet!\n"
-            + "You will have to do a bit more to unlock it.");
+                    + "You will have to do a bit more to unlock it.");
         }
     }
 }

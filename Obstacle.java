@@ -12,11 +12,12 @@ public class Obstacle {
 
     /**
      * Constructor for Obstacle class
-     * @param name Name of the obstacle
+     * 
+     * @param name        Name of the obstacle
      * @param description Description of the obstacle
-     * @param canHideIn Whether the player can hide in the obstacle
-     * @param moveable Whether the obstacle is moveable
-     * @param breakable Whether the obstacle is breakable
+     * @param canHideIn   Whether the player can hide in the obstacle
+     * @param moveable    Whether the obstacle is moveable
+     * @param breakable   Whether the obstacle is breakable
      */
     public Obstacle(String name, String description, boolean canHideIn, boolean moveable, boolean breakable) {
         this.name = name;
@@ -28,7 +29,20 @@ public class Obstacle {
         this.breakItem = null; // default break item
     }
 
-    public Obstacle(String name, String description, boolean canHideIn, boolean moveable, boolean breakable, int breakDamage, Item breakItem) {
+    /**
+     * Alternate constructor for Obstacle class
+     * 
+     * @param name        Name of the obstacle
+     * @param description Description of the obstacle
+     * @param canHideIn   Whether the player can hide in the obstacle
+     * @param moveable    Whether the obstacle is moveable
+     * @param breakable   Whether the obstacle is breakable
+     * @param breakDamage The damage needed to "break" the obstacle
+     * @param breakItem   The item obtained from breaking the obstacle
+     * 
+     */
+    public Obstacle(String name, String description, boolean canHideIn, boolean moveable, boolean breakable,
+            int breakDamage, Item breakItem) {
         this.name = name;
         this.description = description;
         this.canHideIn = canHideIn;
@@ -40,6 +54,7 @@ public class Obstacle {
 
     /**
      * gets name of obstacle
+     * 
      * @return name
      */
     public String getName() {
@@ -48,6 +63,7 @@ public class Obstacle {
 
     /**
      * gets description of obstacle
+     * 
      * @return description
      */
     public String getDescription() {
@@ -56,6 +72,7 @@ public class Obstacle {
 
     /**
      * attempts to hide behind the obstacle
+     * 
      * @return if the player can hide behind the obstacle
      */
     public boolean attemptHide(Player player) {
@@ -69,20 +86,39 @@ public class Obstacle {
         }
     }
 
+    /**
+     * whether or not you can hide in the obstacle
+     * 
+     * @return whether or not you can hide in the obstacle
+     */
     public boolean isHideable() {
         return canHideIn;
     }
 
+    /**
+     * whether or not you can break the obstacle
+     * 
+     * @return whether or not you can break the obstacle
+     */
     public boolean isBreakable() {
         return breakable;
     }
 
+    /**
+     * gets the item you get from breaking the obstacle
+     * 
+     * @return the Item you get from breaking the obstacle
+     */
     public Item getBreakItem() {
         return breakItem;
     }
 
+    /**
+     * gets the damage you need to break the obstacle
+     * 
+     * @return the damage you need to break the obstacle
+     */
     public int getBreakDamage() {
         return breakDamage;
     }
 }
-

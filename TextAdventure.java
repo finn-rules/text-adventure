@@ -59,7 +59,8 @@ public class TextAdventure {
         } else if (position == 3) {
             System.out.println("The foreboding figure is towards the other end of the hallway.");
         } else if (position == 4) {
-            System.out.println("The foreboding figure is at the other end of the hallway. You feel like you're safe... for now.");
+            System.out.println(
+                    "The foreboding figure is at the other end of the hallway. You feel like you're safe... for now.");
         }
     }
 
@@ -81,7 +82,7 @@ public class TextAdventure {
             System.out.println(
                     "The foreboding figure is close, you can see him about to step outside the room you're hiding in.\n"
                             +
-                            "He know's you're in here! But you feel like you might be able to make a break for it.\n" 
+                            "He know's you're in here! But you feel like you might be able to make a break for it.\n"
                             +
                             "(If you're a risk taker). You're safe for now if you stay in the room.\n");
         } else if (position == 2) {
@@ -94,7 +95,7 @@ public class TextAdventure {
             System.out.println(
                     "How did you get to this room? That's weird. Whatever cheating you're doing, the universe doesn't like it.\n"
                             +
-                            "Something called the 'programmer' is going to be very upset.\n" 
+                            "Something called the 'programmer' is going to be very upset.\n"
                             +
                             "It's not your fault, but the choices you made lead to your demise.\n");
             System.out.println("GAME OVER (bugged ending).");
@@ -158,11 +159,11 @@ public class TextAdventure {
     public static String hallway2Description() {
         return ("\nYou look around this hallway.\n To your right, you see a door with a locked code on it.\n"
                 +
-            "Through the window you can see many computers.\n "
+                "Through the window you can see many computers.\n "
                 +
-            "Other than that, there's nothing special, outside of a pencil on the floor.\n"
-            +
-            "The hallway stretches on, and is dark and ominous.\n");
+                "Other than that, there's nothing special, outside of a pencil on the floor.\n"
+                +
+                "The hallway stretches on, and is dark and ominous.\n");
     }
 
     /**
@@ -223,10 +224,10 @@ public class TextAdventure {
      */
     public static String thirteenDescription() {
         return ("You look around the room. There's one 'computer' in the center of the room that's "
-        + "surrounded by a block of ice.\n There's an 'ice pick' in the corner, it looks sharp.\n" 
-        +" Other than that, the room is bare. It feels more familiar than the rest of the rooms.\n" 
-        + "You have no idea why.\n"
-        + "Behind you is the door.");
+                + "surrounded by a block of ice.\n There's an 'ice pick' in the corner, it looks sharp.\n"
+                + " Other than that, the room is bare. It feels more familiar than the rest of the rooms.\n"
+                + "You have no idea why.\n"
+                + "Behind you is the door.");
     }
 
     /**
@@ -236,13 +237,14 @@ public class TextAdventure {
      */
     public static String eighteenDescription() {
         return ("The computer science lab has a strange scent to it... feet? Alright.\n"
-        + "There's a 'tree' in the center of the room, binary, n-ary, whatever you want to call it, it's large and beautiful.\n"
-        + "There is a dagger in the corner of the room.\n You're thinking violent thoughts when you see it.\n"
-        + "Maybe you've been spending too much time around Osera.\n");
+                + "There's a 'tree' in the center of the room, binary, n-ary, whatever you want to call it, it's large and beautiful.\n"
+                + "There is a dagger in the corner of the room.\n You're thinking violent thoughts when you see it.\n"
+                + "Maybe you've been spending too much time around Osera.\n");
     }
 
     /**
      * description of an NPC in the game
+     * 
      * @return the description of Osera.
      */
     public static String oseraDescription() {
@@ -472,8 +474,9 @@ public class TextAdventure {
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine().toLowerCase();
             hallwayRooms[patternIndex(waitStatus)].setNpc(osera); // Set the NPC in the current waitstatus's room
-            // System.out.println("You are currently at " + player.getEffectiveHallwayPosition() + "\n" +
-            //         "Osera is currently at " + effectiveOseraPosition + "\n");
+            // System.out.println("You are currently at " +
+            // player.getEffectiveHallwayPosition() + "\n" +
+            // "Osera is currently at " + effectiveOseraPosition + "\n");
             if (input.contains("quit")) {
                 System.out.println("Thanks for playing! Goodbye!");
                 running = false;
@@ -560,8 +563,8 @@ public class TextAdventure {
                     System.out.println("\nYou are now in " + currentRoom.getName() + "\n");
                 } else {
                     System.out.println("A" + input.contains("right") + (currentRoom.getAdjacentRoomsIndex(2) != null)
-                    + (currentRoom.getDoor() != null) + !currentRoom.getDoor().isLocked()
-                    + !currentRoom.getDoor().isEncoded());
+                            + (currentRoom.getDoor() != null) + !currentRoom.getDoor().isLocked()
+                            + !currentRoom.getDoor().isEncoded());
                     System.out.println(
                             "You can't go that way! If you were hidden, your attempt to go somewhere ruined your hiding spot!\n");
                 }
@@ -666,9 +669,9 @@ public class TextAdventure {
                             currentRoom.getObstacles()[i].isBreakable()) {
                         // simple damage check here
                         System.out.println("You attack the " + inputItem + ". ");
-                        System.out.println("If you don't see anything after this message - " 
-                        + "You're probably too weak to break the item.\n"
-                        + "(tip: make sure you use items, even if they are weapons, or armor!)");
+                        System.out.println("If you don't see anything after this message - "
+                                + "You're probably too weak to break the item.\n"
+                                + "(tip: make sure you use items, even if they are weapons, or armor!)");
                         if (player.getDamage() >= currentRoom.getObstacles()[i].getBreakDamage()) {
                             System.out.println("You broke the " + inputItem + "!");
                             System.out.println("There was an item inside of the " + inputItem + "!");
@@ -677,7 +680,7 @@ public class TextAdventure {
                         break;
                     }
                 }
-            } else if(input.contains("Type") || input.contains("type")) {
+            } else if (input.contains("Type") || input.contains("type")) {
                 String inputItem = input.split(" ")[1]; // Parser here?
                 if (currentRoom.getDoor() == null || currentRoom.getDoor().getCode() == null) {
                     System.out.println("You can't use a code here.");
@@ -686,7 +689,7 @@ public class TextAdventure {
                     if (currentRoom.getDoor().isLocked()) {
                         currentRoom.getDoor().crackCode();
                         System.out.println("You hear a satisfying click... the code worked!\n"
-                        + "But you'll need to have the door unlocked before you can go through."); 
+                                + "But you'll need to have the door unlocked before you can go through.");
                         continue;
                     }
                     currentRoom.getDoor().compareCodes(inputItem);

@@ -80,13 +80,21 @@ public class NPC {
         return damage;
     }
 
+    /**
+     * Make the NPC drop a single item
+     * @return the dropped item
+     */
     public Item dropItem() {
-        Item droppedItem = inventory[0]; // Drop the first item in the inventory.
-        inventory[0] = null; // Remove the item from inventory
+        Item droppedItem = inventory[0]; // Drop the first item in the inventory. (only one in our game)
+        inventory[0] = null;
         System.out.println(name + " dropped " + droppedItem.getName() + ".");
         return droppedItem;
     }
 
+    /**
+     * Transfer all of the loot from the NPC to the player. Should be used on kills.
+     * @param player the player
+     */
     public void transferLoot(Player player) {
         System.out.println(name + " has dropped some loot!");
         for (Item item : inventory) {
@@ -97,10 +105,14 @@ public class NPC {
         }
     }
 
-    public void setCurHealth(int i) {
-        this.curHealth = i;
-        if (this.curHealth > maxHealth) {
-            this.curHealth = maxHealth;
+    /**
+     * Set the health of the NPC - useful for combat
+     * @param hp : the hitpoints to set the health to.
+     */
+    public void setCurHealth(int hp) {
+        this.curHealth = hp;
+        if (this.curHealth > maxHealth) { // don't let it exceed NPC max health.
+            this.curHealth = maxHealth; // especially useful b/c natural regen
         }
     }
 }

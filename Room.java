@@ -39,7 +39,17 @@ public abstract class Room {
             this.door = null;
         }
     }
-
+    /**
+     * Constructor for the Room class. (Alternate: doorless)
+     *
+     * @param name                 The name of the room.
+     * @param items                The items in the room.
+     * @param adjacentRooms        The adjacent rooms (valid directions).
+     * @param lookAroundDescription The description when looking around the room.
+     * @param waitStatus           The wait status of the room (0: no wait).
+     * @param obstacles            The obstacles in the room.
+     * @param npc                 The NPC in the room.
+     */
     public Room(String name, Item[] items, Room[] adjacentRooms, String lookAroundDescription, int waitStatus, Obstacle[] obstacles, NPC npc) {
         this.name = name;
         this.items = items;
@@ -199,6 +209,11 @@ public abstract class Room {
         System.out.println("You don't see that here. Maybe check your spelling?");
     }
 
+    /**
+     * Pick up an item in the room.
+     * @param itemName the name of the item to compare to a room's item
+     * @param player current player
+     */
     public void pickUpItem(String itemName, Player player) {
         for (int i = 0; i < items.length; i++) {
             if (items[i] != null && items[i].getName().equalsIgnoreCase(itemName)) {
@@ -210,12 +225,25 @@ public abstract class Room {
         System.out.println("Item not found in this room. Maybe you already picked it up, or mistyped?");
     }
 
+    /**
+     * Whether or not the room has a door.
+     * @return Whether or not the room has a door.
+     */
     public boolean hasDoor() {
         return hasDoor;
     }
+
+    /**
+     * get the room's door.
+     * @return the room's door.
+     */
     public Door getDoor() {
         return door;
     }
+
+    /**
+     * If the door hasn't been unlocked, unlock it
+     */
     public void unlockDoor() {
         if (hasDoor) {
             door.unlockAtt();
