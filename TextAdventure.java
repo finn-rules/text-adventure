@@ -380,6 +380,7 @@ public class TextAdventure {
         "A tree. It's definitely odd to see this here. You see a glisten of something in the tree.\n" +
                 "It looks like a armor. I bet if you found a way to break the tree, you could get it.\n",
                 true, false, true, 25, knife);
+    
         Obstacle iceComputer = new Obstacle("computer",
                 "A Linux computer. It's frozen over, and you can't see the screen.\n" +
                         "You feel like you could break it with something. Maybe an ice pick?\n" +
