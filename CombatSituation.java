@@ -40,6 +40,7 @@ public class CombatSituation {
             System.out.println("Your turn! What would you like to do?");
             Scanner scanner = new Scanner(System.in);
             String command = scanner.nextLine();
+            scanner.close();
             if (command.equals("attack")) {
                 npc.takeDamage(player.getDamage());
             } else if (command.startsWith("use ")) {
@@ -53,10 +54,12 @@ public class CombatSituation {
             } else if (command.equals("flee")) {
                 System.out.println("You fled from the battle!");
                 Thread.sleep(2000);
-                System.out.println("I wouldn't say you took the coward's way out.");
+                System.out.println("I wouldn't say you took the coward's way out. (Unless you die...)");
                 Thread.sleep(2000);
-                System.out.println("If " + npc.getName() + " takes a stabs at you and kills you, maybe you did though.");
-                break;
+                System.out.println(npc.getName() + " will still take a stab at you.");
+                player.takeDamage(npc.getDamage());
+                break; // Exit the combat loop
+
             } else if (command.equals("check pockets")) {
                 player.printInventory();
             } else if (command.equals("assess situation")) {

@@ -32,7 +32,7 @@ public class KeyItem extends Item {
     public void attemptUse(Player player, Room curRoom, Door door) {
         if (curRoom.equals(useRoom)) {
             System.out.println("You used the " + getName() + " in the " + curRoom.getName() + ".");
-            door.unlock();
+            door.unlockAtt();
             player.useItem(getDescription());
             System.out.println("The " + door.getName() + " has been unlocked.");
         } else {

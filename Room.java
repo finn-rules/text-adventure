@@ -21,6 +21,7 @@ public abstract class Room {
      * @param waitStatus           The wait status of the room (0: no wait).
      * @param obstacles            The obstacles in the room.
      * @param npc                 The NPC in the room.
+     * @param door                The door in the room.
      */
     public Room(String name, Item[] items, Room[] adjacentRooms, String lookAroundDescription, int waitStatus, Obstacle[] obstacles, NPC npc, Door door) {
         this.name = name;
@@ -47,6 +48,8 @@ public abstract class Room {
         this.waitStatus = waitStatus;
         this.obstacles = obstacles;
         this.npc = npc;
+        this.hasDoor = false;
+        this.door = null;
     }
 
 
@@ -66,6 +69,10 @@ public abstract class Room {
         return items;
     }
 
+    /**
+     * set items in room
+     * @param items : the items to place in the room
+     */
     public void setItems(Item[] items) {
         this.items = items;
     }
@@ -208,8 +215,7 @@ public abstract class Room {
     }
     public void unlockDoor() {
         if (hasDoor) {
-            door.unlock();
-            System.out.println("The door has been unlocked."); // unnecessary?
+            door.unlockAtt();
         } else {
             System.out.println("There is no door in this room.");
         }

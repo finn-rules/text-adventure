@@ -76,5 +76,13 @@ public class Obstacle {
     public boolean isBreakable() {
         return breakable;
     }
+
+    public Item getBreakItem() {
+        return breakItem;
+    }
+
+    public int getBreakDamage() {
+        return breakDamage;
+    }
 }
 
